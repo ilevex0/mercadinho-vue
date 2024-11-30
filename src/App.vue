@@ -6,7 +6,7 @@
           <router-link to="/">Home</router-link> |
           <router-link to="/about">About</router-link>
         </div>
-        <router-link to="/carrinho"
+        <router-link to="/my-cart"
           ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
         /></router-link>
       </nav>
@@ -14,7 +14,7 @@
     <router-view
       @addProduct="addProduct"
       :cart="cart"
-      @removeFromCart="removeFromCart"
+      @removeFromCart="removeFromCart" @clearCart="clearCart"
     ></router-view>
   </div>
 </template>
@@ -61,8 +61,8 @@ export default {
     removeFromCart(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
         customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger",
+          confirmButton: "btn btn-danger",
+          cancelButton: "btn btn-success",
         },
         buttonsStyling: false,
       });
@@ -117,6 +117,9 @@ export default {
         title: "Your cart has been updated",
       });
     },
+    clearCart() {
+      this.cart = [];
+    }
   },
 };
 </script>

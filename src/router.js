@@ -5,6 +5,7 @@ import Router from "vue-router";
 import AboutPage from "./pages/AboutPage.vue";
 import CartPage from "./pages/CartPage.vue";
 import ProductsComponent from "./components/ProductsComponent.vue";
+import PurchasePage from "./pages/PurchasePage.vue";
 
 // Informar ao Vue que vamos usar o Vue Router
 Vue.use(Router);
@@ -22,9 +23,14 @@ const routes = [
     component: AboutPage,
   },
   {
-    path: "/carrinho",
-    name: "carrinho",
+    path: "/my-cart",
+    name: "my-cart",
     component: CartPage,
+  },
+  {
+    path: "/purchase",
+    name: "purchase",
+    component: PurchasePage,
   },
 ];
 

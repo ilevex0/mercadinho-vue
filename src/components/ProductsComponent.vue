@@ -14,8 +14,8 @@
         style="max-width: 15rem"
         class="mb-2"
       >
-        <p>R$:{{ product.price }}</p>
         <b-card-text> This is a example product</b-card-text>
+        <p>R$:{{ product.price }}</p>
         <b-button
           href="#"
           variant="primary"

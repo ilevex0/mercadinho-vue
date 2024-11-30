@@ -14,23 +14,23 @@
         style="max-width: 15rem"
         class="mb-2"
       >
-        <p>R$:{{ product.price }}</p>
         <b-card-text> This is a example product</b-card-text>
+        <p>R$:{{ product.price }}</p>
         <div class="cart_product_button">
-            <b-button
-              href="#"
-              variant="primary"
-              @click="changeProduct(product)"
-              >Qtd: {{product.quantity}}</b-button
-            >
-            <b-button
-              href="#"
-              variant="danger"
-              @click="removeFromCart(product)"
-              ><img src="../assets/lixeira.svg" alt="Delete"></b-button
-            >
+          <b-button href="#" variant="primary" @click="changeProduct(product)">
+            Qtd: {{ product.quantity }}
+          </b-button>
+          <b-button href="#" variant="danger" @click="removeFromCart(product)"
+            ><img src="../assets/lixeira.svg" alt="Delete"
+          /></b-button>
         </div>
       </b-card>
+    </div>
+    <div v-if="this.cart.length != 0">
+      <h2>Is this okay?</h2>
+      <b-button href="#" variant="success" @click="confirmPurchase()">
+        Purchase
+      </b-button>
     </div>
   </div>
 </template>
@@ -46,18 +46,45 @@ export default {
   },
   methods: {
     removeFromCart(product) {
-        this.$emit('removeFromCart', product);
+      this.$emit("removeFromCart", product);
     },
     changeProduct(product) {
-        this.$emit("addProduct", product);
-    }
-  }
+      this.$emit("addProduct", product);
+    },
+    confirmPurchase() {
+      let timerInterval;
+      this.$swal
+        .fire({
+          title: "Buying it!",
+          html: "Wait a moment. <b></b> milliseconds.",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            this.$swal.showLoading();
+            const timer = this.$swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+              timer.textContent = `${this.$swal.getTimerLeft()}`;
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        })
+        .then(() => {
+          /* Read more about handling dismissals below */
+          this.$emit("clearCart");
+          this.$router.push('/purchase');
+        });
+    },
+  },
 };
 </script>
 
 <style scoped>
 .products {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
   margin: 100px;
@@ -67,9 +94,13 @@ export default {
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
 }
 .cart_product_button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.purchase_button {
+  color: white;
+  text-decoration-line: none;
 }
 </style>
