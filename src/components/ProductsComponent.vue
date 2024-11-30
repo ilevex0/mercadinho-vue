@@ -33,18 +33,18 @@ export default {
   data() {
     return {
       products: [
-        { name: "1", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "2", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "4", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "5", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "6", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "7", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "3", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "8", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "9", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "10", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "11", price: 30.5, description: "This is a example product", buttonIsPressed: false},
-        { name: "12", price: 30.5, description: "This is a example product", buttonIsPressed: false},
+        { name: "1", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "2", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "4", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "5", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "6", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "7", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "3", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "8", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "9", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "10", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "11", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        { name: "12", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
       ],
     };
   },
@@ -57,10 +57,10 @@ export default {
   methods: {
     addToCart(product) {
       this.$emit("addProduct", product);
-      product.buttonIsPressed = true;
+      product.buttonIsPressed += 1;
     },
     buttonText(index) {
-      return this.products[index].buttonIsPressed == true ? "Added!" : "Buy it!"
+      return this.products[index].buttonIsPressed > 0 ? `Added! (${this.products[index].buttonIsPressed})` : "Add to cart!"
     }
   },
 };

@@ -6,7 +6,7 @@
           <router-link to="/">Home</router-link> |
           <router-link to="/about">About</router-link>
         </div>
-        <router-link to="/carrinho">Carrinho</router-link>
+        <router-link to="/carrinho"><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"></router-link>
       </nav>
     </div>
     <router-view @addProduct="addProduct" :cart="cart"></router-view>
