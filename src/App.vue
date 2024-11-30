@@ -1,19 +1,31 @@
 <template>
   <div id="app">
-    <nav>
-        <router-link to="/">Home</router-link> | 
-        <router-link to="/about">About</router-link>
-    </nav>
-    <router-view></router-view>
+    <div class="div-nav">
+      <nav class="nav">
+        <div>
+          <router-link to="/">Home</router-link> |
+          <router-link to="/about">About</router-link>
+        </div>
+        <router-link to="/carrinho">Carrinho</router-link>
+      </nav>
+    </div>
+    <router-view @addProduct="addProduct" :cart="cart"></router-view>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "App",
-  components: {
-    
+  components: {},
+  data() {
+    return {
+      cart: [],
+    };
+  },
+  methods: {
+    addProduct(product) {
+      this.cart.push(product);
+    },
   },
 };
 </script>
@@ -25,6 +37,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.div-nav {
+  padding: 30px;
+  padding-top: 40px;
+  background-color: #1a1a1a;
+}
+.nav {
+  gap: 10px;
 }
 </style>
