@@ -11,7 +11,7 @@
         /></router-link>
       </nav>
     </div>
-    <router-view @addProduct="addProduct" :cart="cart"></router-view>
+    <router-view @addProduct="addProduct" :cart="cart" @removeFromCart="removeFromCart"></router-view>
   </div>
 </template>
 
@@ -33,6 +33,12 @@ export default {
       }
       this.cart.push(product);
       console.log(this.cart);
+    },
+    removeFromCart(product) {
+      const index = this.cart.findIndex((item) => item.id === product.id);
+      if (index !== -1) {
+        this.cart.splice(index, 1);
+      }
     },
   },
 };
