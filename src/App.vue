@@ -26,6 +26,25 @@ export default {
   },
   methods: {
     addProduct(product) {
+      this.$swal
+        .fire({
+          title: "How much products?",
+          icon: "question",
+          input: "range",
+          inputLabel: "Quantity",
+          inputAttributes: {
+            min: "0",
+            max: "10",
+            step: "1",
+          },
+          inputValue: 1,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            product.quantity = result.value;
+            this.AddedToCartAnimation();
+          }
+        });
       const index = this.cart.findIndex((item) => item.id === product.id);
       
       if (index !== -1) {
@@ -39,6 +58,23 @@ export default {
       if (index !== -1) {
         this.cart.splice(index, 1);
       }
+    },
+    AddedToCartAnimation() {
+      const Toast = this.$swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = this.$swal.stopTimer;
+          toast.onmouseleave = this.$swal.resumeTimer;
+        },
+      });
+      Toast.fire({
+        icon: "success",
+        title: "Your cart has been updated",
+      });
     },
   },
 };

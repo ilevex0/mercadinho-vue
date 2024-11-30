@@ -19,7 +19,7 @@
         <b-button
           href="#"
           variant="primary"
-          @click="removeFromCart(product)"
+          @click="changeProduct(product)"
           >{{product.quantity}}</b-button
         >
         <b-button
@@ -45,6 +45,9 @@ export default {
   methods: {
     removeFromCart(product) {
         this.$emit('removeFromCart', product);
+    },
+    changeProduct(product) {
+        this.$emit("addProduct", product);
     }
   }
 };
