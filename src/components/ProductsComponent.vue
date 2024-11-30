@@ -38,84 +38,96 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 0,
         },
         {
           name: "2",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 1,
         },
         {
           name: "4",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 2,
         },
         {
           name: "5",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 3,
         },
         {
           name: "6",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 4,
         },
         {
           name: "7",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 5,
         },
         {
           name: "3",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 6,
         },
         {
           name: "8",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 7,
         },
         {
           name: "9",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 8,
         },
         {
           name: "10",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 9,
         },
         {
           name: "11",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 10,
         },
         {
           name: "12",
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
-          buttonIsPressed: 0,
+          quantity: 0,
+          id: 11,
         },
       ],
     };
@@ -142,13 +154,13 @@ export default {
         inputValue: 1,
       }).then((result) => {
         if (result.isConfirmed) {
-          product.buttonIsPressed = result.value;
+          product.quantity = result.value;
         }
       });
     },
     buttonText(index) {
-      return this.products[index].buttonIsPressed > 0
-        ? `Added! (${this.products[index].buttonIsPressed})`
+      return this.products[index].quantity > 0
+        ? `Added! (${this.products[index].quantity})`
         : "Add to cart!";
     },
   },
