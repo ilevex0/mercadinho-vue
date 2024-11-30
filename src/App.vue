@@ -11,7 +11,11 @@
         /></router-link>
       </nav>
     </div>
-    <router-view @addProduct="addProduct" :cart="cart" @removeFromCart="removeFromCart"></router-view>
+    <router-view
+      @addProduct="addProduct"
+      :cart="cart"
+      @removeFromCart="removeFromCart"
+    ></router-view>
   </div>
 </template>
 
@@ -46,7 +50,7 @@ export default {
           }
         });
       const index = this.cart.findIndex((item) => item.id === product.id);
-      
+
       if (index !== -1) {
         this.cart.splice(index, 1);
       }
@@ -54,10 +58,46 @@ export default {
       console.log(this.cart);
     },
     removeFromCart(product) {
-      const index = this.cart.findIndex((item) => item.id === product.id);
-      if (index !== -1) {
-        this.cart.splice(index, 1);
-      }
+      const swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!",
+          cancelButtonText: "No, cancel!",
+          reverseButtons: true,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const index = this.cart.findIndex((item) => item.id === product.id);
+            if (index !== -1) {
+              this.cart.splice(index, 1);
+              //this.AddedToCartAnimation();
+            }
+            swalWithBootstrapButtons.fire({
+              title: "Deleted!",
+              text: "Your cart has been updated.",
+              icon: "success",
+            });
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === this.$swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire({
+              title: "Cancelled",
+              text: "The product is safe :)",
+              icon: "error",
+            });
+          }
+        });
     },
     AddedToCartAnimation() {
       const Toast = this.$swal.mixin({
