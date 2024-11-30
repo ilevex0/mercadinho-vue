@@ -7,7 +7,7 @@
         v-for="(product, index) in products"
         :key="index"
         :title="product.name"
-        img-src="https://picsum.photos/600/300/?image=25"
+        :img-src="product.image"
         img-alt="Image"
         img-top
         tag="article"
@@ -37,72 +37,84 @@ export default {
           name: "1",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "2",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "4",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "5",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "6",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "7",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "3",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "8",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "9",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "10",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "11",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
         {
           name: "12",
           price: 30.5,
           description: "This is a example product",
+          image: "https://picsum.photos/600/300/?image=25",
           buttonIsPressed: 0,
         },
       ],
@@ -117,12 +129,21 @@ export default {
   methods: {
     addToCart(product) {
       this.$emit("addProduct", product);
-      product.buttonIsPressed += 1;
       this.$swal.fire({
-        title: "Error!",
-        text: "Do you want to continue",
-        icon: "error",
-        confirmButtonText: "Cool",
+        title: "How much products?",
+        icon: "question",
+        input: "range",
+        inputLabel: "Quantity",
+        inputAttributes: {
+          min: "0",
+          max: "10",
+          step: "1",
+        },
+        inputValue: 1,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          product.buttonIsPressed = result.value;
+        }
       });
     },
     buttonText(index) {
