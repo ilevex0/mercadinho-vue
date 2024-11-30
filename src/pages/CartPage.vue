@@ -16,18 +16,20 @@
       >
         <p>R$:{{ product.price }}</p>
         <b-card-text> This is a example product</b-card-text>
-        <b-button
-          href="#"
-          variant="primary"
-          @click="changeProduct(product)"
-          >{{product.quantity}}</b-button
-        >
-        <b-button
-          href="#"
-          variant="danger"
-          @click="removeFromCart(product)"
-          ><img src="../assets/lixeira.svg" alt="Delete"></b-button
-        >
+        <div class="cart_product_button">
+            <b-button
+              href="#"
+              variant="primary"
+              @click="changeProduct(product)"
+              >Qtd: {{product.quantity}}</b-button
+            >
+            <b-button
+              href="#"
+              variant="danger"
+              @click="removeFromCart(product)"
+              ><img src="../assets/lixeira.svg" alt="Delete"></b-button
+            >
+        </div>
       </b-card>
     </div>
   </div>
@@ -63,5 +65,11 @@ export default {
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+}
+.cart_product_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 </style>

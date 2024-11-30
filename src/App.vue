@@ -46,16 +46,17 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             product.quantity = result.value;
-            this.AddedToCartAnimation();
+            const index = this.cart.findIndex((item) => item.id === product.id);
+
+            if (index !== -1) {
+              this.cart.splice(index, 1);
+            }
+            if (result.value != 0) {
+              this.AddedToCartAnimation();
+              this.cart.push(product);
+            }
           }
         });
-      const index = this.cart.findIndex((item) => item.id === product.id);
-
-      if (index !== -1) {
-        this.cart.splice(index, 1);
-      }
-      this.cart.push(product);
-      console.log(this.cart);
     },
     removeFromCart(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
