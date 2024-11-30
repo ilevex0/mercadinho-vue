@@ -33,18 +33,78 @@ export default {
   data() {
     return {
       products: [
-        { name: "1", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "2", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "4", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "5", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "6", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "7", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "3", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "8", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "9", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "10", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "11", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
-        { name: "12", price: 30.5, description: "This is a example product", buttonIsPressed: 0},
+        {
+          name: "1",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "2",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "4",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "5",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "6",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "7",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "3",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "8",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "9",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "10",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "11",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
+        {
+          name: "12",
+          price: 30.5,
+          description: "This is a example product",
+          buttonIsPressed: 0,
+        },
       ],
     };
   },
@@ -58,10 +118,18 @@ export default {
     addToCart(product) {
       this.$emit("addProduct", product);
       product.buttonIsPressed += 1;
+      this.$swal.fire({
+        title: "Error!",
+        text: "Do you want to continue",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
     },
     buttonText(index) {
-      return this.products[index].buttonIsPressed > 0 ? `Added! (${this.products[index].buttonIsPressed})` : "Add to cart!"
-    }
+      return this.products[index].buttonIsPressed > 0
+        ? `Added! (${this.products[index].buttonIsPressed})`
+        : "Add to cart!";
+    },
   },
 };
 </script>
