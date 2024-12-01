@@ -14,7 +14,9 @@
     <router-view
       @addProduct="addProduct"
       :cart="cart"
-      @removeFromCart="removeFromCart" @clearCart="clearCart"
+      @removeFromCart="removeFromCart"
+      @clearCart="clearCart"
+      :totalPrice="totalPrice"
     ></router-view>
   </div>
 </template>
@@ -26,9 +28,18 @@ export default {
   data() {
     return {
       cart: [],
+      totalPrice: 0,
     };
   },
   methods: {
+    returnTotalPrice() {
+      this.totalPrice = 0
+      if (this.cart != []) {
+        this.cart.forEach((product) => {
+        this.totalPrice += product.quantity * product.price;
+      });
+      }
+    },
     addProduct(product) {
       this.$swal
         .fire({
@@ -54,6 +65,7 @@ export default {
             if (result.value != 0) {
               this.AddedToCartAnimation();
               this.cart.push(product);
+              this.returnTotalPrice();
             }
           }
         });
@@ -81,7 +93,7 @@ export default {
             const index = this.cart.findIndex((item) => item.id === product.id);
             if (index !== -1) {
               this.cart.splice(index, 1);
-              //this.AddedToCartAnimation();
+              this.returnTotalPrice();
             }
             swalWithBootstrapButtons.fire({
               title: "Deleted!",
@@ -119,7 +131,7 @@ export default {
     },
     clearCart() {
       this.cart = [];
-    }
+    },
   },
 };
 </script>

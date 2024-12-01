@@ -28,6 +28,7 @@
     </div>
     <div v-if="this.cart.length != 0">
       <h2>Is this okay?</h2>
+      <p>Total price is: {{ totalPrice }}</p>
       <b-button href="#" variant="success" @click="confirmPurchase()">
         Purchase
       </b-button>
@@ -41,6 +42,10 @@ export default {
   props: {
     cart: {
       type: Array,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
       required: true,
     },
   },
