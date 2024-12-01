@@ -15,7 +15,7 @@
         class="mb-2"
       >
         <b-card-text> This is a example product</b-card-text>
-        <p>R$:{{ product.price }}</p>
+        <p>${{ product.price.toFixed(2) }}</p>
         <div class="cart_product_button">
           <b-button href="#" variant="primary" @click="changeProduct(product)">
             Qtd: {{ product.quantity }}
@@ -28,7 +28,7 @@
     </div>
     <div v-if="this.cart.length != 0">
       <h2>Is this okay?</h2>
-      <p>Total price is: {{ totalPrice }}</p>
+      <p>Total price is: ${{ totalPrice.toFixed(2) }}</p>
       <b-button href="#" variant="success" @click="confirmPurchase()">
         Purchase
       </b-button>

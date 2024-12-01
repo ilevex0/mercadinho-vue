@@ -15,7 +15,7 @@
         class="mb-2"
       >
         <b-card-text> This is a example product</b-card-text>
-        <p>R$:{{ product.price }}</p>
+        <p>${{ product.price.toFixed(2) }}</p>
         <b-button
           href="#"
           variant="primary"
