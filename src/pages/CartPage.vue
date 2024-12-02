@@ -29,7 +29,7 @@
     <div v-if="this.cart.length != 0">
       <h2>Is this okay?</h2>
       <p>Total price is: ${{ totalPrice.toFixed(2) }}</p>
-      <b-button href="#" variant="success" @click="confirmPurchase()">
+      <b-button href="#" variant="success" @click="purchase()">
         Purchase
       </b-button>
     </div>
@@ -56,6 +56,20 @@ export default {
     changeProduct(product) {
       this.$emit("addProduct", product);
     },
+    purchase() {
+      this.$swal.fire({
+        title: "Proceed with payment?",
+        text: "The fictitious product will be purchased!",
+        showCancelButton: true,
+        confirmButtonColor: "#0d6efd",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, please!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.confirmPurchase();
+        }
+      });
+    },
     confirmPurchase() {
       let timerInterval;
       this.$swal
@@ -78,7 +92,7 @@ export default {
         .then(() => {
           /* Read more about handling dismissals below */
           this.$emit("clearCart");
-          this.$router.push('/purchase');
+          this.$router.push("/purchase");
         });
     },
   },

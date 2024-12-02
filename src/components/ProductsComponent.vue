@@ -1,6 +1,60 @@
 <template>
   <div class="ProductsComponent">
-    <h1>Products</h1>
+    <div class="carousel-div">
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="4000"
+        controls
+        indicators
+        background="#ababab"
+        img-width="1024"
+        img-height="200"
+        style="text-shadow: 1px 1px 2px #333"
+        @sliding-start="onSlideStart"
+        @sliding-end="onSlideEnd"
+      >
+        <!-- Text slides with image -->
+        <b-carousel-slide
+          caption="First slide"
+          text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+          img-src="https://picsum.photos/1024/200/?image=52"
+        ></b-carousel-slide>
+
+        <!-- Slides with custom text -->
+        <b-carousel-slide img-src="https://picsum.photos/1024/200/?image=54">
+          <h1>Hello world!</h1>
+        </b-carousel-slide>
+
+        <!-- Slides with image only -->
+        <b-carousel-slide
+          img-src="https://picsum.photos/1024/200/?image=58"
+        ></b-carousel-slide>
+
+        <!-- Slides with img slot -->
+        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="200"
+              src="https://picsum.photos/1024/200/?image=55"
+              alt="image slot"
+            />
+          </template>
+        </b-carousel-slide>
+
+        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+        <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            eros felis, tincidunt a tincidunt eget, convallis vel est. Ut
+            pellentesque ut lacus vel interdum.
+          </p>
+        </b-carousel-slide>
+      </b-carousel>
+    </div>
     <hr />
     <div class="products">
       <b-card
@@ -8,7 +62,7 @@
         :key="index"
         :title="product.name"
         :img-src="product.image"
-        img-alt="Image"
+        :img-alt="product.imageAlt"
         img-top
         tag="article"
         style="max-width: 15rem"
@@ -38,6 +92,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 0,
         },
@@ -46,6 +101,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 1,
         },
@@ -54,6 +110,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 2,
         },
@@ -62,6 +119,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 3,
         },
@@ -70,6 +128,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 4,
         },
@@ -78,6 +137,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 5,
         },
@@ -86,6 +146,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 6,
         },
@@ -94,6 +155,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 7,
         },
@@ -102,6 +164,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 8,
         },
@@ -110,6 +173,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 9,
         },
@@ -118,6 +182,7 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 10,
         },
@@ -126,10 +191,13 @@ export default {
           price: 30.5,
           description: "This is a example product",
           image: "https://picsum.photos/600/300/?image=25",
+          imageAlt: "fictitious product",
           quantity: 0,
           id: 11,
         },
       ],
+      slide: 0,
+      sliding: null,
     };
   },
   props: {
@@ -148,6 +216,12 @@ export default {
         ? `Added! (${this.products[index].quantity})`
         : "Add to cart!";
     },
+    onSlideStart() {
+      this.sliding = true;
+    },
+    onSlideEnd() {
+      this.sliding = false;
+    },
   },
 };
 </script>
@@ -162,5 +236,8 @@ export default {
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+}
+.carousel-div {
+
 }
 </style>

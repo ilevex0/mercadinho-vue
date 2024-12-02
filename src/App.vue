@@ -33,11 +33,11 @@ export default {
   },
   methods: {
     returnTotalPrice() {
-      this.totalPrice = 0
+      this.totalPrice = 0;
       if (this.cart != []) {
         this.cart.forEach((product) => {
-        this.totalPrice += product.quantity * product.price;
-      });
+          this.totalPrice += product.quantity * product.price;
+        });
       }
     },
     addProduct(product) {
@@ -45,14 +45,17 @@ export default {
         .fire({
           title: "How much products?",
           icon: "question",
+          confirmButtonColor: "#0d6efd",
+          showCancelButton: true,
+          cancelButtonColor: "#dc3545",
           input: "range",
-          inputLabel: "Quantity",
           inputAttributes: {
             min: "0",
             max: "10",
             step: "1",
           },
           inputValue: 1,
+          inputLabel: "The Quantity",
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -73,8 +76,8 @@ export default {
     removeFromCart(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
         customClass: {
-          confirmButton: "btn btn-danger",
-          cancelButton: "btn btn-success",
+          confirmButton: "btn btn-primary",
+          cancelButton: "btn btn-danger",
         },
         buttonsStyling: false,
       });
@@ -86,7 +89,7 @@ export default {
           showCancelButton: true,
           confirmButtonText: "Yes, delete it!",
           cancelButtonText: "No, cancel!",
-          reverseButtons: true,
+          reverseButtons: false,
         })
         .then((result) => {
           if (result.isConfirmed) {
