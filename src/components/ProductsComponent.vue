@@ -3,6 +3,7 @@
     <CarouselComponent />
     <hr />
     <div class="products">
+      <p v-if="failedToFetch">Sorry, we couldn't load the products. Please try again later.</p>
       <b-card
         v-for="(product, index) in products"
         :key="index"
@@ -39,6 +40,7 @@ export default {
   data() {
     return {
       products: [],
+      failedToFetch: false,
     };
   },
   async created() {
@@ -49,8 +51,8 @@ export default {
       .then((response) => {
         this.products = response.data;
       })
-      .catch((error) => {
-        console.error("Erro ao buscar produtos:", error);
+      .catch(() => {
+        this.failedToFetch = true
       });
   },
   props: {
