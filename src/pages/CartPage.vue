@@ -3,6 +3,9 @@
     <h1>My Cart ({{ this.cart.length }})</h1>
     <hr />
     <div class="products">
+      <div v-if="this.cart.length == 0">
+        <p>Cart is empty right now :c</p>
+      </div>
       <b-card
         v-for="(product, index) in this.cart"
         :key="index"
@@ -57,18 +60,20 @@ export default {
       this.$emit("addProduct", product);
     },
     purchase() {
-      this.$swal.fire({
-        title: "Proceed with payment?",
-        text: "The fictitious product will be purchased!",
-        showCancelButton: true,
-        confirmButtonColor: "#0d6efd",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, please!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.confirmPurchase();
-        }
-      });
+      this.$swal
+        .fire({
+          title: "Proceed with payment?",
+          text: "The fictitious product will be purchased!",
+          showCancelButton: true,
+          confirmButtonColor: "#0d6efd",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, please!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.confirmPurchase();
+          }
+        });
     },
     confirmPurchase() {
       let timerInterval;
