@@ -59,6 +59,12 @@
 <script>
 export default {
   name: "CarouselComponent",
+  data() {
+    return {
+      slide: 0,
+      sliding: null,
+    }
+  },
   methods: {
     onSlideStart() {
       this.sliding = true;
@@ -70,4 +76,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped></style>

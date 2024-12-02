@@ -147,8 +147,6 @@ export default {
           id: 11,
         },
       ],
-      slide: 0,
-      sliding: null,
     };
   },
   props: {

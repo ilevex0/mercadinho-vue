@@ -7,24 +7,29 @@
           <router-link to="/about">About</router-link>
         </div>
         <router-link to="/my-cart"
-          ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
+        ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
         /></router-link>
       </nav>
     </div>
     <router-view
-      @addProduct="addProduct"
-      :cart="cart"
-      @removeFromCart="removeFromCart"
-      @clearCart="clearCart"
-      :totalPrice="totalPrice"
+    @addProduct="addProduct"
+    :cart="cart"
+    @removeFromCart="removeFromCart"
+    @clearCart="clearCart"
+    :totalPrice="totalPrice"
     ></router-view>
+    <FooterComponent />
   </div>
 </template>
 
 <script>
+import FooterComponent from "./components/FooterComponent.vue";
+
 export default {
   name: "App",
-  components: {},
+  components: {
+    FooterComponent,
+  },
   data() {
     return {
       cart: [],
