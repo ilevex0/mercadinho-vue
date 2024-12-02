@@ -1,36 +1,45 @@
 <template>
   <div class="ProductsComponent">
     <CarouselComponent />
-    <hr />
+    <p>Attention! All the images are provided from <a href="https://www.amazon.com" target="_blank">Amazon</a></p>
+    <h2 class="products-category">Technology</h2>
     <div class="products">
-      <p v-if="failedToFetch">Sorry, we couldn't load the products. Please try again later.</p>
-      <b-card
-        v-for="(product, index) in products"
-        :key="index"
-        :title="product.name"
-        :img-src="product.image"
-        :img-alt="product.imageAlt"
-        img-top
-        tag="article"
-        style="max-width: 15rem"
-        class="mb-2"
-      >
-        <b-card-text> This is a example product</b-card-text>
-        <p>${{ product.price.toFixed(2) }}</p>
-        <b-button
-          href="#"
-          variant="primary"
+      <p v-if="failedToFetch">
+        Sorry, we couldn't load the products. Please try again later.
+      </p>
+      <div class="product" v-for="(product, index) in filteredTechProducts" :key="index">
+        <img
+          :src="require(`@/assets/products_images/${product.image}.png`)"
+          :alt="product.imageAlt"
+          class="product-image"
           @click="addToCart(product, index)"
-          >{{ buttonText(index) }}</b-button
-        >
-      </b-card>
+        />
+        <div>
+          <p class="product-title" @click="addToCart(product, index)">
+            {{ product.name }}
+          </p>
+          <p class="product-description" @click="addToCart(product, index)">
+            {{ product.description }}
+          </p>
+
+          <div class="button-and-price">
+            <p class="product-price">${{ product.price.toFixed(2) }}</p>
+            <b-button
+              href="#"
+              variant="primary"
+              @click="addToCart(product, index)"
+              >{{ buttonText(index) }}</b-button
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CarouselComponent from "./CarouselComponent.vue";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "ProductsComponent",
@@ -46,13 +55,13 @@ export default {
   async created() {
     axios
       .get(
-        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/1c8b814f06d039634fb1a9db28b48e4223331622/products.json"
+        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/4d3d3f22733a11ef99aeccdd5211a4d86bbc842c/products.json"
       )
       .then((response) => {
         this.products = response.data;
       })
       .catch(() => {
-        this.failedToFetch = true
+        this.failedToFetch = true;
       });
   },
   props: {
@@ -72,15 +81,62 @@ export default {
         : "Add to cart!";
     },
   },
+  computed: {
+    filteredTechProducts() {
+        return this.products.filter(product => product.category === 'technology');
+      },
+  }
 };
 </script>
 
 <style scoped>
+* {
+  margin: 0px;
+}
+.products-category {
+  margin: 30px;
+  text-align: start;
+}
 .products {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 30px;
-  margin: 100px;
+  align-content: center;
+  justify-content: center;
+  overflow-x: auto;
+}
+.product {
+  width: 15%;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 8px;
+  padding: 10px;
+}
+.product-image {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.product-image:hover {
+  scale: 1.01;
+  transition: .5s;
+}
+.product-title,
+.product-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.product-price {
+  font-weight: bold;
+  cursor: auto;
+}
+.button-and-price {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
 }
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
