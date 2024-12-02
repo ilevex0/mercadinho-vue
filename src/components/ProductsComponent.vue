@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import CarouselComponent from './CarouselComponent.vue';
+import CarouselComponent from "./CarouselComponent.vue";
+import axios from 'axios';
 
 export default {
   name: "ProductsComponent",
@@ -37,117 +38,20 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          name: "1",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 0,
-        },
-        {
-          name: "2",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 1,
-        },
-        {
-          name: "4",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 2,
-        },
-        {
-          name: "5",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 3,
-        },
-        {
-          name: "6",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 4,
-        },
-        {
-          name: "7",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 5,
-        },
-        {
-          name: "3",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 6,
-        },
-        {
-          name: "8",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 7,
-        },
-        {
-          name: "9",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 8,
-        },
-        {
-          name: "10",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 9,
-        },
-        {
-          name: "11",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 10,
-        },
-        {
-          name: "12",
-          price: 30.5,
-          description: "This is a example product",
-          image: "https://picsum.photos/600/300/?image=25",
-          imageAlt: "fictitious product",
-          quantity: 0,
-          id: 11,
-        },
-      ],
+      products: [],
     };
+  },
+  async created() {
+    axios
+      .get(
+        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/1c8b814f06d039634fb1a9db28b48e4223331622/products.json"
+      )
+      .then((response) => {
+        this.products = response.data;
+      })
+      .catch((error) => {
+        console.error("Erro ao buscar produtos:", error);
+      });
   },
   props: {
     cart: {
