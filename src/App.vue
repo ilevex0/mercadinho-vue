@@ -151,12 +151,14 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.nav a {
+  text-decoration: none;
+}
 .nav-button {
   font-size: 20px;
   padding: 16px;
   background-color: rgb(66, 76, 83);
   border-radius: 8px;
-  text-decoration: none;
   color: white;
   transition: all 0.2s ease;
 }
