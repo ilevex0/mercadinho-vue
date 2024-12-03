@@ -53,5 +53,60 @@
     "sales": 12,
     "category": "technology",
     "id": 4
+  },
+  {
+    "name": "C3Tech Base para Notebook NBC-50BK 15,6",
+    "price": 58.81,
+    "description": "Refrigerada com 2 Coolers, Led de Iluminacao Azul, Inclinacao Ajustável em 5 niveis, com USB, cor Preta.",
+    "image": "C3Tech-Base-para-Notebook",
+    "imageAlt": "C3Tech Base para Notebook",
+    "quantity": 0,
+    "sales": 94,
+    "category": "technology",
+    "id": 5
+  },
+  {
+    "name": "Sanduicheira Elétrica Cadence Click - 220V",
+    "price": 89.9,
+    "description": "Sanduicheira Elétrica Cadence Click - 220V.",
+    "image": "Sanduicheira-Eletrica-Cadence-Click",
+    "imageAlt": "Sanduicheira Elétrica Cadence Click - 220V",
+    "quantity": 0,
+    "sales": 38,
+    "category": "kitchen",
+    "id": 6
+  },
+  {
+    "name": "Agratto, 783, Chaleira Elétrica, 127v, Preto/Inox",
+    "price": 52.19,
+    "description": "Chaleira Elétrica, 127v, Preto/Inox.",
+    "image": "Agratto-Chaleira-Eletrica",
+    "imageAlt": "Agratto, 783, Chaleira Elétrica, 127v, Preto/Inox",
+    "quantity": 0,
+    "sales": 58,
+    "category": "kitchen",
+    "id": 7
+  },
+  {
+    "name": "Stanley - Copo de cerveja isolado, copo empilhável Stay Chill de 473 ml, para bebidas quentes ou frias, Lilac",
+    "price": 135.0,
+    "description": "copo empilhável Stay Chill de 473 ml, para bebidas quentes ou frias, Lilac.",
+    "image": "Stanley-Copo-de-cerveja",
+    "imageAlt": "Stanley - Copo de cerveja isolado, copo empilhável Stay Chill de 473 ml, para bebidas quentes ou frias, Lilac",
+    "quantity": 0,
+    "sales": 127,
+    "category": "kitchen",
+    "id": 8
+  },
+  {
+    "name": "Liquidificador Turbo Power, Mondial, Preto, 550W, 110V - L-99 FB",
+    "price": 99.9,
+    "description": "Mondial, Preto, 550W, 110V - L-99 FB.",
+    "image": "Liquidificador-Turbo-Power-Mondial",
+    "imageAlt": "Liquidificador Turbo Power, Mondial, Preto, 550W, 110V - L-99 FB",
+    "quantity": 0,
+    "sales": 238,
+    "category": "kitchen",
+    "id": 9
   }
 ]

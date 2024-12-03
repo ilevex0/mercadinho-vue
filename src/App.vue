@@ -37,13 +37,6 @@ export default {
     };
   },
   methods: {
-    returnTotalPrice() {
-      this.totalPrice = this.cart.reduce(
-        (total, product) => total + product.quantity * product.price,
-        0
-      );
-    },
-
     addProduct(product) {
       this.$swal
         .fire({
@@ -64,8 +57,8 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             product.quantity = result.value;
+            
             const index = this.cart.findIndex((item) => item.id === product.id);
-
             if (index !== -1) {
               this.cart.splice(index, 1);
             }
@@ -76,6 +69,9 @@ export default {
             }
           }
         });
+    },
+    clearCart() {
+      this.cart = [];
     },
     removeFromCart(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
@@ -97,11 +93,10 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const index = this.cart.findIndex((item) => item.id === product.id);
-            if (index !== -1) {
-              this.cart.splice(index, 1);
-              this.returnTotalPrice();
-            }
+            const index = this.cart.findIndex(item => item.id === product.id);
+
+            if (index > -1) this.cart.splice(index, 1), this.returnTotalPrice();
+
             swalWithBootstrapButtons.fire({
               title: "Deleted!",
               text: "Your cart has been updated.",
@@ -136,8 +131,10 @@ export default {
         title: "Your cart has been updated",
       });
     },
-    clearCart() {
-      this.cart = [];
+    returnTotalPrice() {
+      this.totalPrice = this.cart.reduce(
+        (total, product) => total + product.quantity * product.price, 0
+      );
     },
   },
 };

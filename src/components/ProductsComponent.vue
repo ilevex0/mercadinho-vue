@@ -1,16 +1,16 @@
 <template>
   <div class="ProductsComponent">
     <CarouselComponent />
-    <p>
+    <p v-if="!failedToFetch">
       Attention! All product images are available in the
       <a href="https://www.amazon.com" target="_blank">Amazon Store</a>
     </p>
-    <section>
-      <h2 v-if="!failedToFetch" class="products-category">Technology</h2>
+    <p v-if="failedToFetch">
+      Sorry, we couldn't load the products. Please try again later.
+    </p>
+    <section v-if="!failedToFetch">
+      <h2 class="products-category">Best Sellers in Technology</h2>
       <div class="products">
-        <p v-if="failedToFetch">
-          Sorry, we couldn't load the products. Please try again later.
-        </p>
         <div
           class="product"
           v-for="(product, index) in filteredTechProducts"
@@ -20,13 +20,13 @@
             :src="require(`@/assets/products_images/${product.image}.png`)"
             :alt="product.imageAlt"
             class="product-image"
-            @click="addToCart(product, index)"
+            @click="addToCart(product, product.id)"
           />
           <div>
-            <p class="product-title" @click="addToCart(product, index)">
+            <p class="product-title" @click="addToCart(product, product.id)">
               {{ product.name }}
             </p>
-            <p class="product-description" @click="addToCart(product, index)">
+            <p class="product-description" @click="addToCart(product, product.id)">
               {{ product.description }}
             </p>
 
@@ -35,43 +35,45 @@
               <b-button
                 href="#"
                 variant="primary"
-                @click="addToCart(product, index)"
-                >{{ buttonText(index) }}</b-button
+                @click="addToCart(product, product.id)"
+                >{{ buttonText(product.id) }}</b-button
               >
             </div>
           </div>
         </div>
       </div>
     </section>
-    <section>
-      <h2 v-if="!failedToFetch" class="products-category">Technology</h2>
+    <section v-if="!failedToFetch">
+      <h2 class="products-category">Best Sellers in Kitchen</h2>
       <div class="products">
         <div
           class="product"
-          v-for="(product, index) in filteredTechProducts"
+          v-for="(product, index) in filteredKichenProducts"
           :key="index"
         >
           <img
             :src="require(`@/assets/products_images/${product.image}.png`)"
             :alt="product.imageAlt"
             class="product-image"
-            @click="addToCart(product, index)"
+            @click="addToCart(product, product.id)"
           />
           <div>
-            <p class="product-title" @click="addToCart(product, index)">
-              {{ product.name }}
-            </p>
-            <p class="product-description" @click="addToCart(product, index)">
-              {{ product.description }}
-            </p>
+            <div>
+              <p class="product-title" @click="addToCart(product, product.id)">
+                {{ product.name }}
+              </p>
+              <p class="product-description" @click="addToCart(product, product.id)">
+                {{ product.description }}
+              </p>
+            </div>
 
             <div class="button-and-price">
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <b-button
                 href="#"
                 variant="primary"
-                @click="addToCart(product, index)"
-                >{{ buttonText(index) }}</b-button
+                @click="addToCart(product, product.id)"
+                >{{ buttonText(product.id) }}</b-button
               >
             </div>
           </div>
@@ -99,7 +101,7 @@ export default {
   async created() {
     axios
       .get(
-        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/6a942d0f04707c5168846dc2e87341522acae405/products.json"
+        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/1693709825b35cfce2b45f10dfd9a86ef305c31a/products.json"
       )
       .then((response) => {
         this.products = response.data;
@@ -119,9 +121,9 @@ export default {
       this.$emit("addProduct", product);
       //
     },
-    buttonText(index) {
-      return this.products[index].quantity > 0
-        ? `Added! (${this.products[index].quantity})`
+    buttonText(productid) {
+      return this.products[productid].quantity > 0
+        ? `Added! (${this.products[productid].quantity})`
         : "Add to cart!";
     },
   },
@@ -130,6 +132,9 @@ export default {
       return this.products.filter(
         (product) => product.category === "technology"
       );
+    },
+    filteredKichenProducts() {
+      return this.products.filter((product) => product.category === "kitchen");
     },
   },
 };
@@ -140,27 +145,29 @@ export default {
   margin: 0px;
 }
 section {
-  margin: 100px;
+  margin: 1rem 3rem 1rem 3rem;
 }
 .products-category {
-  margin: 30px;
+  margin: 1.5rem;
   margin-left: 5%;
   text-align: start;
 }
 .products {
   display: flex;
   flex-wrap: nowrap;
-  gap: 3rem;
-  align-content: center;
-  justify-content: center;
+  gap: 1rem;
+  align-content: end;
+  justify-content: flex-start;
   overflow-x: auto;
 }
 .product {
   width: 15%;
+  min-width: 100px;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
-  padding: 10px;
-  min-width: 100px;
+  padding: 1.2em;
+  align-content: center;
+  justify-content: center;
 }
 .product-image {
   width: 100%;
@@ -173,21 +180,28 @@ section {
 }
 .product-title,
 .product-description {
+  display: block;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  font-size: clamp(0.7rem, 0.8vw, 1.5rem);
 }
 .product-price {
   font-weight: bold;
   cursor: auto;
+  font-size: clamp(1rem, 1.2vw, 2rem);
+  white-space: nowrap;
 }
 .button-and-price {
   display: flex;
   align-content: center;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  justify-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0px 1rem;
 }
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
