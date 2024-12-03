@@ -2,15 +2,17 @@
   <div id="app">
     <div class="div-nav">
       <nav class="nav">
-        <div>
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
-        </div>
+        <router-link to="/"><li class="nav-button">Home</li></router-link>
+        <router-link to="/about"><li class="nav-button">About</li></router-link>
         <router-link to="/my-cart"
-          ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
+          ><img
+            class="nav-button"
+            src="./assets/shopping_bag.svg"
+            alt="My Shopping Cart"
         /></router-link>
       </nav>
     </div>
+    <div class="div-nav-detail"></div>
     <router-view
       @addProduct="addProduct"
       :cart="cart"
@@ -57,7 +59,7 @@ export default {
         .then((result) => {
           if (result.isConfirmed) {
             product.quantity = result.value;
-            
+
             const index = this.cart.findIndex((item) => item.id === product.id);
             if (index !== -1) {
               this.cart.splice(index, 1);
@@ -93,7 +95,7 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const index = this.cart.findIndex(item => item.id === product.id);
+            const index = this.cart.findIndex((item) => item.id === product.id);
 
             if (index > -1) this.cart.splice(index, 1), this.returnTotalPrice();
 
@@ -133,14 +135,15 @@ export default {
     },
     returnTotalPrice() {
       this.totalPrice = this.cart.reduce(
-        (total, product) => total + product.quantity * product.price, 0
+        (total, product) => total + product.quantity * product.price,
+        0
       );
     },
   },
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -148,14 +151,35 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.nav-button {
+  font-size: 20px;
+  padding: 16px;
+  background-color: rgb(66, 76, 83);
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s ease;
+}
+.nav-button:hover {
+  transform: translateY(2px);
+}
 .div-nav {
   padding: 30px;
   padding-top: 40px;
   background-color: #1a1a1a;
   font-size: 1.5m;
 }
+.div-nav-detail {
+  width: 100%;
+  height: 5px;
+  background-color: rgb(59, 74, 82);
+}
 .nav {
   gap: 10px;
   justify-content: center;
+  align-items: center;
+}
+li {
+  list-style: none;
 }
 </style>

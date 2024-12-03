@@ -37,8 +37,7 @@
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <b-button
                 class="btn-blue"
-                @click="addToCart(product, product.id)"
-                >{{ buttonText(product.id) }}</b-button
+                @click="addToCart(product, product.id)">{{ buttonText(product.id) }}</b-button
               >
             </div>
           </div>
