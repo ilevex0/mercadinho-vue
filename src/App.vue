@@ -152,8 +152,10 @@ export default {
   padding: 30px;
   padding-top: 40px;
   background-color: #1a1a1a;
+  font-size: 1.5m;
 }
 .nav {
   gap: 10px;
+  justify-content: center;
 }
 </style>

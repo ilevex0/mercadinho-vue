@@ -51,6 +51,7 @@ export default {
 
 <style scoped>
 .FooterComponent {
+  margin: 10px 0px 0px 0px;
   background-color: rgb(26, 41, 56);
   color: white;
 }
@@ -92,5 +93,10 @@ a:hover {
 .button-back-to-top:hover {
   background-color: rgb(44, 98, 129);
   color: rgb(241, 241, 241);
+}
+@media (max-width: 843px) {
+  .author-div p {
+    display: none;
+  }
 }
 </style>

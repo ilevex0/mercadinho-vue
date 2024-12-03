@@ -26,15 +26,17 @@
             <p class="product-title" @click="addToCart(product, product.id)">
               {{ product.name }}
             </p>
-            <p class="product-description" @click="addToCart(product, product.id)">
+            <p
+              class="product-description"
+              @click="addToCart(product, product.id)"
+            >
               {{ product.description }}
             </p>
 
             <div class="button-and-price">
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <b-button
-                href="#"
-                variant="primary"
+                class="btn-blue"
                 @click="addToCart(product, product.id)"
                 >{{ buttonText(product.id) }}</b-button
               >
@@ -62,7 +64,10 @@
               <p class="product-title" @click="addToCart(product, product.id)">
                 {{ product.name }}
               </p>
-              <p class="product-description" @click="addToCart(product, product.id)">
+              <p
+                class="product-description"
+                @click="addToCart(product, product.id)"
+              >
                 {{ product.description }}
               </p>
             </div>
@@ -70,8 +75,7 @@
             <div class="button-and-price">
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <b-button
-                href="#"
-                variant="primary"
+                class="btn-blue"
                 @click="addToCart(product, product.id)"
                 >{{ buttonText(product.id) }}</b-button
               >
@@ -165,7 +169,7 @@ section {
   min-width: 100px;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
-  padding: 1.2em;
+  padding: 1em;
   align-content: center;
   justify-content: center;
 }
@@ -188,6 +192,10 @@ section {
   cursor: pointer;
   font-size: clamp(0.7rem, 0.8vw, 1.5rem);
 }
+.products-category {
+  font-size: clamp(1.2rem, 1.5vw, 6rem);
+  font-weight: 600;
+}
 .product-price {
   font-weight: bold;
   cursor: auto;
@@ -206,5 +214,45 @@ section {
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+}
+
+.btn-blue {
+  width: 100%;
+  background-color: #007bff; /* Cor azul de fundo */
+  color: white; /* Cor do texto */
+  font-size: clamp(0.5rem, 1vw, 1rem); /* Tamanho da fonte */
+  padding: 10px; /* Espaçamento interno (padding) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Aparece a mãozinha ao passar o mouse */
+  transition: all 0.3s ease; /* Transição suave para os efeitos */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove o sublinhado caso seja link */
+  white-space: nowrap;
+}
+
+.btn-blue:hover {
+  background-color: #0056b3; /* Cor de fundo azul mais escura no hover */
+  transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
+}
+
+.btn-blue:active {
+  background-color: #004085; /* Cor ainda mais escura no clique */
+  transform: translateY(2px); /* Efeito de pressionar o botão */
+}
+@media (max-width: 843px) {
+  section {
+    margin: 0px;
+    padding: 8px;
+  }
+}
+@media (max-width: 447px) {
+  section {
+    margin: 0px;
+    padding: 0px;
+  }
+  .btn-blue {
+    display: none;
+  }
 }
 </style>
