@@ -7,16 +7,16 @@
           <router-link to="/about">About</router-link>
         </div>
         <router-link to="/my-cart"
-        ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
+          ><img src="./assets/shopping_bag.svg" alt="My Shopping Cart"
         /></router-link>
       </nav>
     </div>
     <router-view
-    @addProduct="addProduct"
-    :cart="cart"
-    @removeFromCart="removeFromCart"
-    @clearCart="clearCart"
-    :totalPrice="totalPrice"
+      @addProduct="addProduct"
+      :cart="cart"
+      @removeFromCart="removeFromCart"
+      @clearCart="clearCart"
+      :totalPrice="totalPrice"
     ></router-view>
     <FooterComponent />
   </div>
@@ -38,13 +38,12 @@ export default {
   },
   methods: {
     returnTotalPrice() {
-      this.totalPrice = 0;
-      if (this.cart != []) {
-        this.cart.forEach((product) => {
-          this.totalPrice += product.quantity * product.price;
-        });
-      }
+      this.totalPrice = this.cart.reduce(
+        (total, product) => total + product.quantity * product.price,
+        0
+      );
     },
+
     addProduct(product) {
       this.$swal
         .fire({
