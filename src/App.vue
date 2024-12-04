@@ -150,6 +150,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(248, 248, 248);
 }
 .nav a {
   text-decoration: none;

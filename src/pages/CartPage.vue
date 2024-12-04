@@ -2,33 +2,46 @@
   <div class="CartPage">
     <h1>My Cart ({{ this.cart.length }})</h1>
     <hr />
-    <div class="products">
-      <div v-if="this.cart.length == 0">
-        <p>Cart is empty right now :c</p>
-      </div>
-      <b-card
-        v-for="(product, index) in this.cart"
-        :key="index"
-        :title="product.name"
-        :img-src="product.image"
-        img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 15rem"
-        class="mb-2"
-      >
-        <b-card-text> This is a example product</b-card-text>
-        <p>${{ product.price.toFixed(2) }}</p>
-        <div class="cart_product_button">
-          <b-button href="#" variant="primary" @click="changeProduct(product)">
-            Qtd: {{ product.quantity }}
-          </b-button>
-          <b-button href="#" variant="danger" @click="removeFromCart(product)"
-            ><img src="../assets/lixeira.svg" alt="Delete"
-          /></b-button>
+    <section>
+      <div class="products">
+        <div class="product" v-for="(product, index) in this.cart" :key="index">
+          <img
+            :src="require(`@/assets/products_images/${product.image}.png`)"
+            :alt="product.imageAlt"
+            class="product-image"
+            @click="changeProduct(product)"
+          />
+          <div>
+            <p class="product-title" @click="changeProduct(product)">
+              {{ product.name }}
+            </p>
+            <p
+              class="product-description"
+              @click="changeProduct(product)"
+            >
+              {{ product.description }}
+            </p>
+
+            <div class="button-and-price">
+              <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
+              <div class="cart_product_button">
+                <b-button
+                  class="btn-blue"
+                  @click="changeProduct(product)"
+                >
+                  Qtd: {{ product.quantity }}
+                </b-button>
+                <b-button
+                  class="btn-red"
+                  @click="removeFromCart(product)"
+                  ><img class="btn-red-image" src="../assets/lixeira.svg" alt="Delete"
+                /></b-button>
+              </div>
+            </div>
+          </div>
         </div>
-      </b-card>
-    </div>
+      </div>
+    </section>
     <div v-if="this.cart.length != 0">
       <h2>Is this okay?</h2>
       <p>Total price is: ${{ totalPrice.toFixed(2) }}</p>
@@ -105,26 +118,141 @@ export default {
 </script>
 
 <style scoped>
+* {
+  margin: 0px;
+}
+section {
+  margin: 1rem 3rem 1rem 3rem;
+}
+.products-category {
+  margin: 1.5rem;
+  margin-left: 0px;
+  text-align: start;
+}
 .products {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
-  margin: 100px;
+  gap: 1rem;
+  align-content: flex-start;
+  justify-content: center;
+  overflow-x: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+}
+.product {
+  width: 15%;
+  min-width: 100px;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 8px;
+  padding: 1em;
+  align-content: center;
+  justify-content: center;
+}
+.product-image {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.product-image:hover {
+  scale: 1.01;
+  transition: 0.5s;
+}
+.product-title,
+.product-description {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-size: clamp(0.7rem, 0.8vw, 1.5rem);
+}
+.products-category {
+  font-size: clamp(1.2rem, 1.5vw, 6rem);
+  font-weight: 600;
+}
+.product-price {
+  font-weight: bold;
+  cursor: auto;
+  font-size: clamp(1rem, 1.2vw, 2rem);
+  white-space: nowrap;
+}
+.button-and-price {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0px 1rem;
 }
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
 }
-.cart_product_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+
+.btn-blue {
+  width: 100%;
+  background-color: #007bff; /* Cor azul de fundo */
+  color: white; /* Cor do texto */
+  font-size: clamp(0.7rem, 1.2vw, 1.2rem); /* Tamanho da fonte */
+  padding: 10px; /* Espaçamento interno (padding) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Aparece a mãozinha ao passar o mouse */
+  transition: all 0.3s ease; /* Transição suave para os efeitos */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove o sublinhado caso seja link */
+  white-space: nowrap;
 }
-.purchase_button {
-  color: white;
-  text-decoration-line: none;
+
+.btn-blue:hover {
+  background-color: #0056b3; /* Cor de fundo azul mais escura no hover */
+  transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
+}
+
+.btn-blue:active {
+  background-color: #004085; /* Cor ainda mais escura no clique */
+  transform: translateY(2px); /* Efeito de pressionar o botão */
+}
+.btn-red {
+  width: 100%;
+  background-color: #ff0000; /* Cor vermelha de fundo */
+  color: white; /* Cor do texto */
+  padding: 10px; /* Espaçamento interno (padding) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Aparece a mãozinha ao passar o mouse */
+  transition: all 0.3s ease; /* Transição suave para os efeitos */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove o sublinhado caso seja link */
+  white-space: nowrap;
+}
+
+.btn-red:hover {
+  background-color: #cc0000; /* Cor de fundo vermelha mais escura no hover */
+  transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
+}
+
+.btn-red:active {
+  background-color: #990000; /* Cor ainda mais escura no clique */
+  transform: translateY(2px); /* Efeito de pressionar o botão */
+}
+.btn-red-image {
+  width: clamp(1rem, 2vw, 2rem);;
+}
+
+@media (max-width: 843px) {
+  section {
+    margin: 0px;
+    padding: 8px;
+  }
+}
+@media (max-width: 447px) {
+  section {
+    margin: 0px;
+    padding: 0px;
+  }
 }
 </style>

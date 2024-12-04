@@ -152,7 +152,7 @@ section {
 }
 .products-category {
   margin: 1.5rem;
-  margin-left: 5%;
+  margin-left: 0px;
   text-align: start;
 }
 .products {
@@ -160,8 +160,10 @@ section {
   flex-wrap: nowrap;
   gap: 1rem;
   align-content: end;
-  justify-content: flex-start;
+  justify-content: space-between;
   overflow-x: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
 }
 .product {
   width: 15%;
@@ -249,9 +251,6 @@ section {
   section {
     margin: 0px;
     padding: 0px;
-  }
-  .btn-blue {
-    display: none;
   }
 }
 </style>
