@@ -4,9 +4,15 @@
       <nav class="nav">
         <router-link to="/"><li class="nav-button">Home</li></router-link>
         <router-link to="/about"><li class="nav-button">About</li></router-link>
-        <router-link to="/my-cart"
+        <router-link v-if="cart <= 0" to="/my-cart"
           ><img
             class="nav-button"
+            src="./assets/shopping_bag.svg"
+            alt="My Shopping Cart"
+        /></router-link>
+        <router-link v-else to="/my-cart"
+          ><img
+            class="nav-button-hasInCart"
             src="./assets/shopping_bag.svg"
             alt="My Shopping Cart"
         /></router-link>
@@ -155,7 +161,7 @@ export default {
 .nav a {
   text-decoration: none;
 }
-.nav-button {
+.nav-button, .nav-button-hasInCart {
   font-size: 20px;
   padding: 16px;
   background-color: rgb(66, 76, 83);
@@ -163,12 +169,15 @@ export default {
   color: white;
   transition: all 0.2s ease;
 }
-.nav-button:hover {
+.nav-button:hover, .nav-button-hasInCart:hover {
   transform: translateY(2px);
 }
+.nav-button-hasInCart {
+  background-color: rgb(26, 130, 228);
+  border: 1px solid rgb(255, 255, 255);
+}
 .div-nav {
-  padding: 30px;
-  padding-top: 40px;
+  padding: 10px;
   background-color: #1a1a1a;
   font-size: 1.5m;
 }
