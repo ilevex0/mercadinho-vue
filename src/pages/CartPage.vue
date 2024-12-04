@@ -70,7 +70,7 @@ export default {
       this.$emit("removeFromCart", product);
     },
     changeProduct(product) {
-      this.$emit("addProduct", product);
+      this.$emit("changeQuantity", product);
     },
     purchase() {
       this.$swal

@@ -4,14 +4,14 @@
       :src="require(`@/assets/products_images/${product.image}.png`)"
       :alt="product.imageAlt"
       class="product-image"
-      @click="addToCart(product, product.id)"
+      @click="seeProduct(product)"
     />
     <div>
       <div>
-        <p class="product-title" @click="addToCart(product, product.id)">
+        <p class="product-title" @click="seeProduct(product)">
           {{ product.name }}
         </p>
-        <p class="product-description" @click="addToCart(product, product.id)">
+        <p class="product-description" @click="seeProduct(product)">
           {{ product.description }}
         </p>
       </div>
@@ -23,14 +23,20 @@
 
 <script>
 export default {
-    props: {
-        index: {
-            type: Number,
-        },
-        product: {
-            type: Object,
-        },
-    }
+  props: {
+    index: {
+      type: Number,
+      required: true,
+    },
+    product: {
+      type: Object,
+      required: true,
+    },
+    seeProduct: { 
+      type: Function,
+      required: true,
+    },
+  },
 };
 </script>
 

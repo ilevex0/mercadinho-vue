@@ -21,7 +21,9 @@
     <div class="div-nav-detail"></div>
     <router-view
       @addProduct="addProduct"
+      @seeProduct="seeProduct"
       :cart="cart"
+      :seeProductDetails="seeProductDetails"
       @removeFromCart="removeFromCart"
       @clearCart="clearCart"
       :totalPrice="totalPrice"
@@ -41,11 +43,23 @@ export default {
   data() {
     return {
       cart: [],
+      seeProductDetails: [],
       totalPrice: 0,
     };
   },
   methods: {
+    seeProduct(product) {
+      if(this.seeProductDetails.lenght > 0) {
+        this.seeProductDetails = [];
+      }
+      this.seeProductDetails.push(product)
+      console.log(this.seeProductDetails)
+      this.$router.push('/productdetailspage');
+    },
     addProduct(product) {
+      console.log('adding', product)
+    },
+    changeQuantity(product) {
       this.$swal
         .fire({
           title: "How much products?",

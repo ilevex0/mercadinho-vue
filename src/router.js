@@ -4,8 +4,9 @@ import Router from "vue-router";
 // Importar os componentes de páginas
 import AboutPage from "./pages/AboutPage.vue";
 import CartPage from "./pages/CartPage.vue";
-import ProductsComponent from "./components/ProductsComponent.vue";
+import HomePage from "./pages/HomePage.vue";
 import PurchasePage from "./pages/PurchasePage.vue";
+import ProductDetailsPage from "./pages/ProductDetailsPage.vue"
 
 // Informar ao Vue que vamos usar o Vue Router
 Vue.use(Router);
@@ -15,7 +16,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: ProductsComponent,
+    component: HomePage,
   },
   {
     path: "/about",
@@ -31,6 +32,11 @@ const routes = [
     path: "/purchase",
     name: "purchase",
     component: PurchasePage,
+  },
+  {
+    path: "/productdetailspage",
+    name: "productdetailspage",
+    component: ProductDetailsPage,
   },
 ];
 

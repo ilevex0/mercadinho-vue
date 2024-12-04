@@ -1,5 +1,5 @@
 <template>
-  <div class="ProductsComponent">
+  <div class="HomePage">
     <CarouselComponent />
     <p v-if="failedToFetch">
       Sorry, we couldn't load the products. Please try again later.
@@ -12,7 +12,7 @@
           v-for="(product, index) in filteredTechProducts"
           :key="index"
         >
-          <ProductCard :product="product" :index="index" />
+          <ProductCard :product="product" :index="index" :seeProduct="seeProduct"/>
         </div>
       </div>
     </section>
@@ -25,7 +25,7 @@
             v-for="(product, index) in filteredKichenProducts"
             :key="index"
           >
-            <ProductCard :product="product" :index="index" />
+            <ProductCard :product="product" :index="index" :seeProduct="seeProduct"/>
           </div>
         </div>
       </div>
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import CarouselComponent from "./CarouselComponent.vue";
+import CarouselComponent from "../components/CarouselComponent.vue";
 import axios from "axios";
-import ProductCard from "./ProductCard.vue";
+import ProductCard from "../components/ProductCard.vue";
 
 export default {
-  name: "ProductsComponent",
+  name: "HomePage",
   components: {
     CarouselComponent,
     ProductCard,
@@ -69,9 +69,15 @@ export default {
     },
   },
   methods: {
+    seeProduct(product) {
+      this.$emit("seeProduct", product);
+    },
     addToCart(product) {
       this.$emit("addProduct", product);
-      //
+
+    },
+    changeQuantity(product) {
+      this.$emit("changeQuantity", product)
     },
     buttonText(productid) {
       return this.products[productid].quantity > 0
