@@ -34,7 +34,7 @@ const routes = [
     component: PurchasePage,
   },
   {
-    path: "/productdetailspage/:productid",
+    path: "/productdetailspage/:productimage",
     name: "productdetailspage",
     component: ProductDetailsPage,
   },

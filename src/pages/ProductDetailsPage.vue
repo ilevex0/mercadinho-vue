@@ -1,8 +1,9 @@
 <template>
   <div class="ProductDetailsPage">
-    <h1>Product Details</h1>
     <div class="product-detail" v-if="hasProduct">
-      <p>{{ seeproduct[0].name }}</p>
+      <h1>{{ seeproduct[0].name }}</h1>
+      <p>{{ seeproduct[0].description }}</p>
+      <img :src="require(`@/assets/products_images/${seeproduct[0].image}.png`)" :alt="seeproduct[0].imageAlt">
     </div>
   </div>
 </template>
@@ -25,14 +26,14 @@ export default {
     };
   },
   created() {
-    let productId = this.$route.params.productid;
-    productId = parseInt(productId);
+    let productimage = this.$route.params.productimage;
 
     axios.get(this.APIRequest).then((response) => {
       const produtos = response.data;
-      this.produto = produtos.find((produto) => produto.id === productId);
+      this.produto = produtos.find((produto) => produto.image === productimage);
 
       if (this.produto) {
+        this.seeproduct = [];
         this.seeproduct.push(this.produto);
         this.hasProduct = true;
       }
@@ -42,6 +43,7 @@ export default {
               text: "Product is not found :(",
               icon: "error",
             });
+            this.$router.push('/')
       }
     });
   },

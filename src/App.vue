@@ -52,7 +52,7 @@ export default {
     seeProduct(product) {
       this.$router.push({
         name: "productdetailspage",
-        params: { productid: product.id },
+        params: { productimage: product.image },
       });
     },
     addProduct(product) {
