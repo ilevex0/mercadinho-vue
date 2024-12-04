@@ -53,7 +53,7 @@ export default {
   async created() {
     axios
       .get(
-        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json"
+        this.APIRequest
       )
       .then((response) => {
         this.products = response.data;
@@ -67,6 +67,10 @@ export default {
       type: Array,
       required: true,
     },
+    APIRequest: { 
+      String,
+      required: true,
+    }
   },
   methods: {
     seeProduct(product) {

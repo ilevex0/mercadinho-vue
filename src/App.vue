@@ -23,7 +23,7 @@
       @addProduct="addProduct"
       @seeProduct="seeProduct"
       :cart="cart"
-      :seeProductDetails="seeProductDetails"
+      :APIRequest="APIRequest"
       @removeFromCart="removeFromCart"
       @clearCart="clearCart"
       :totalPrice="totalPrice"
@@ -42,22 +42,21 @@ export default {
   },
   data() {
     return {
+      APIRequest:
+        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json",
       cart: [],
-      seeProductDetails: [],
       totalPrice: 0,
     };
   },
   methods: {
     seeProduct(product) {
-      if(this.seeProductDetails.lenght > 0) {
-        this.seeProductDetails = [];
-      }
-      this.seeProductDetails.push(product)
-      console.log(this.seeProductDetails)
-      this.$router.push('/productdetailspage');
+      this.$router.push({
+        name: "productdetailspage",
+        params: { productid: product.id },
+      });
     },
     addProduct(product) {
-      console.log('adding', product)
+      console.log("adding", product);
     },
     changeQuantity(product) {
       this.$swal
@@ -144,8 +143,7 @@ export default {
         },
         buttonsStyling: false,
       });
-      swalWithBootstrapButtons
-      .fire({
+      swalWithBootstrapButtons.fire({
         title: "Sucess!",
         text: "Your Cart has been updated.",
         icon: "success",

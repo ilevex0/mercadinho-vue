@@ -2,38 +2,48 @@
   <div class="ProductDetailsPage">
     <h1>Product Details</h1>
     <div class="product-detail" v-if="hasProduct">
-      <p>{{ seeProductDetails[0].name }}</p>
+      <p>{{ seeproduct[0].name }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 
 export default {
   name: "ProductDetailsPage",
+  props: {
+    APIRequest: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       hasProduct: false,
-    }
+      seeproduct: [],
+    };
   },
   created() {
-    if(this.seeProductDetails.length > 0) {
-      this.hasProduct = true;
-    }
-    else {
-      this.$swal.fire({
+    let productId = this.$route.params.productid;
+    productId = parseInt(productId);
+
+    axios.get(this.APIRequest).then((response) => {
+      const produtos = response.data;
+      this.produto = produtos.find((produto) => produto.id === productId);
+
+      if (this.produto) {
+        this.seeproduct.push(this.produto);
+        this.hasProduct = true;
+      }
+      else {
+        this.$swal.fire({
               title: "Error",
-              text: "There is no Product selected to see, please select one.",
+              text: "Product is not found :(",
               icon: "error",
             });
-      this.$router.push('/')
-    }
-  },
-  props: {
-    seeProductDetails: { 
-      type: Array, 
-      required: true,
-    },
+      }
+    });
   },
 };
 </script>

@@ -34,7 +34,7 @@ const routes = [
     component: PurchasePage,
   },
   {
-    path: "/productdetailspage",
+    path: "/productdetailspage/:productid",
     name: "productdetailspage",
     component: ProductDetailsPage,
   },
