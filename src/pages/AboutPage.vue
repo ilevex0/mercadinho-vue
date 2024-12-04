@@ -12,7 +12,7 @@
           </b-card-header>
           <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
             <b-card-body>
-              <b-card-text><p>This is a front-end page built with <b>Vue.js</b>. The page uses <b>SweetAlert2</b> and <b>BootstrapVue</b>, and it <b>makes a request</b> to the <b>GitHub Gist API</b> to fetch data in <b>JSON format</b>.</p></b-card-text>
+              <b-card-text><p>This is a front-end website built with <b>Vue.js</b>. The website uses <b>SweetAlert2</b>, <b>BootstrapVue</b>, and it <b>makes a request</b> to the <b>GitHub Gist API</b> to fetch data in <b>JSON format</b>.</p></b-card-text>
             </b-card-body>
           </b-collapse>
         </b-card>
