@@ -281,7 +281,7 @@ section {
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
 .margin-footer {
-  margin-bottom: 900px;
+  margin-bottom: 500px;
 }
 .margin-footer-if-cart {
   margin-bottom: 300px;

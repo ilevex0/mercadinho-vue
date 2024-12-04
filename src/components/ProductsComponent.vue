@@ -100,7 +100,7 @@ export default {
   async created() {
     axios
       .get(
-        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/1693709825b35cfce2b45f10dfd9a86ef305c31a/products.json"
+        "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json"
       )
       .then((response) => {
         this.products = response.data;
