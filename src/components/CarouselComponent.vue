@@ -5,7 +5,6 @@
       v-model="slide"
       :interval="4000"
       controls
-      indicators
       background="#ababab"
       img-width="1024"
       img-height="200"
@@ -15,41 +14,23 @@
     >
       <!-- Text slides with image -->
       <b-carousel-slide
-        caption="First slide"
-        text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-        img-src="https://picsum.photos/1024/200/?image=52"
-      ></b-carousel-slide>
+        :img-src="require(`@/assets/products_banners/banner-1.png`)">
+        <h2>NOTE: All the images in this website is taken from the internet!</h2>
+    </b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide img-src="https://picsum.photos/1024/200/?image=54">
-        <h1>Hello world!</h1>
+      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-2.png`)">
+        <h2>NOTE: All the images in this website is taken from the internet!</h2>
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide
-        img-src="https://picsum.photos/1024/200/?image=58"
-      ></b-carousel-slide>
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <b-carousel-slide>
-        <template #img>
-          <img
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="200"
-            src="https://picsum.photos/1024/200/?image=55"
-            alt="image slot"
-          />
-        </template>
+        :img-src="require(`@/assets/products_banners/banner-3.png`)">
+        <h2>NOTE: All the images in this website is taken from the internet!</h2>
       </b-carousel-slide>
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
+      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-4.png`)">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          eros felis, tincidunt a tincidunt eget, convallis vel est. Ut
-          pellentesque ut lacus vel interdum.
+          NOTE: All the images in this website is taken from the internet!
         </p>
       </b-carousel-slide>
     </b-carousel>
@@ -76,4 +57,22 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.carousel-control-prev, .carousel-control-next {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    background: none;
+    border: 0;
+    opacity: 0.5;
+    transition: opacity 0.15s ease;
+}
+</style>

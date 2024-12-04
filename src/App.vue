@@ -165,6 +165,8 @@ export default {
   font-size: 20px;
   padding: 16px;
   background-color: rgb(66, 76, 83);
+  border: 1px solid rgb(66, 76, 83);
+
   border-radius: 8px;
   color: white;
   transition: all 0.2s ease;
