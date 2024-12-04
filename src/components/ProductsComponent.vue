@@ -1,10 +1,6 @@
 <template>
   <div class="ProductsComponent">
     <CarouselComponent />
-    <p v-if="!failedToFetch">
-      Attention! All product images are available in the
-      <a href="https://www.amazon.com" target="_blank">Amazon Store</a>
-    </p>
     <p v-if="failedToFetch">
       Sorry, we couldn't load the products. Please try again later.
     </p>
