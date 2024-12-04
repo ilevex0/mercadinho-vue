@@ -2,6 +2,13 @@
   <div class="CartPage">
     <h1>My Cart ({{ this.cart.length }})</h1>
     <hr />
+    <div class="purchase-info" v-if="this.cart.length != 0">
+      <h2>Total price is</h2>
+      <p class="product-price">R${{ totalPrice.toFixed(2) }}</p>
+      <b-button class="btn-green" @click="purchase()">
+        Purchase
+      </b-button>
+    </div>
     <section>
       <div class="products">
         <div class="product" v-for="(product, index) in this.cart" :key="index">
@@ -15,26 +22,21 @@
             <p class="product-title" @click="changeProduct(product)">
               {{ product.name }}
             </p>
-            <p
-              class="product-description"
-              @click="changeProduct(product)"
-            >
+            <p class="product-description" @click="changeProduct(product)">
               {{ product.description }}
             </p>
 
             <div class="button-and-price">
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <div class="cart_product_button">
-                <b-button
-                  class="btn-blue"
-                  @click="changeProduct(product)"
-                >
+                <b-button class="btn-blue" @click="changeProduct(product)">
                   Qtd: {{ product.quantity }}
                 </b-button>
-                <b-button
-                  class="btn-red"
-                  @click="removeFromCart(product)"
-                  ><img class="btn-red-image" src="../assets/lixeira.svg" alt="Delete"
+                <b-button class="btn-red" @click="removeFromCart(product)"
+                  ><img
+                    class="btn-red-image"
+                    src="../assets/lixeira.svg"
+                    alt="Delete"
                 /></b-button>
               </div>
             </div>
@@ -42,13 +44,8 @@
         </div>
       </div>
     </section>
-    <div v-if="this.cart.length != 0">
-      <h2>Is this okay?</h2>
-      <p>Total price is: ${{ totalPrice.toFixed(2) }}</p>
-      <b-button href="#" variant="success" @click="purchase()">
-        Purchase
-      </b-button>
-    </div>
+    <div class="margin-footer" v-if="this.cart.length <= 0"></div>
+    <div class="margin-footer-if-cart" v-else></div>
   </div>
 </template>
 
@@ -120,6 +117,9 @@ export default {
 <style scoped>
 * {
   margin: 0px;
+}
+.purchase-info {
+  margin-top: 20px;
 }
 section {
   margin: 1rem 3rem 1rem 3rem;
@@ -240,7 +240,39 @@ section {
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
 .btn-red-image {
-  width: clamp(1rem, 2vw, 2rem);;
+  width: clamp(1rem, 2vw, 2rem);
+}
+.btn-green {
+  width: 15vw;
+  max-width: 150px;
+  min-width: 70px;
+  background-color: #28a745; /* Cor verde de fundo */
+  color: white; /* Cor do texto */
+  font-size: clamp(0.7rem, 1.2vw, 1.2rem); /* Tamanho da fonte */
+  padding: 10px; /* Espaçamento interno (padding) */
+  border: none; /* Remove a borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  cursor: pointer; /* Aparece a mãozinha ao passar o mouse */
+  transition: all 0.3s ease; /* Transição suave para os efeitos */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove o sublinhado caso seja link */
+  white-space: nowrap;
+}
+
+.btn-green:hover {
+  background-color: #218838; /* Cor de fundo verde mais escura no hover */
+  transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
+}
+
+.btn-green:active {
+  background-color: #1e7e34; /* Cor ainda mais escura no clique */
+  transform: translateY(2px); /* Efeito de pressionar o botão */
+}
+.margin-footer {
+  margin-bottom: 900px;
+}
+.margin-footer-if-cart {
+  margin-bottom: 300px;
 }
 
 @media (max-width: 843px) {
