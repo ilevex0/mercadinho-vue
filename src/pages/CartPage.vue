@@ -2,6 +2,9 @@
   <div class="CartPage">
     <h1>My Cart ({{ this.cart.length }})</h1>
     <hr />
+    <div class="cart-empty" v-if="this.cart.length <= 0">
+      <p>Your cart is empty right now :c</p>
+    </div>
     <div class="purchase-info" v-if="this.cart.length != 0">
       <h2>Total price is</h2>
       <p class="product-price">R${{ totalPrice.toFixed(2) }}</p>
@@ -117,6 +120,15 @@ export default {
 <style scoped>
 * {
   margin: 0px;
+}
+.cart-empty {
+  display: flex;
+  margin: 200px 40vw;
+  color: rgb(0, 0, 0);
+  justify-content: center;
+  align-content: center;
+  border-radius: 8px;
+  white-space: nowrap;
 }
 .purchase-info {
   margin-top: 20px;
@@ -277,13 +289,13 @@ section {
 
 @media (max-width: 843px) {
   section {
-    margin: 0px;
+    margin: 1rem 0;
     padding: 8px;
   }
 }
 @media (max-width: 447px) {
   section {
-    margin: 0px;
+    margin: 1rem 0;
     padding: 0px;
   }
 }

@@ -123,20 +123,20 @@ export default {
         });
     },
     AddedToCartAnimation() {
-      const Toast = this.$swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = this.$swal.stopTimer;
-          toast.onmouseleave = this.$swal.resumeTimer;
+      const swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-primary",
+          cancelButton: "btn btn-danger",
         },
+        buttonsStyling: false,
       });
-      Toast.fire({
+      swalWithBootstrapButtons
+      .fire({
+        title: "Sucess!",
+        text: "Your Cart has been updated.",
         icon: "success",
-        title: "Your cart has been updated",
+        confirmButtonText: "Continue",
+        confirmButtonClass: "btn btn-primary",
       });
     },
     returnTotalPrice() {
@@ -161,7 +161,8 @@ export default {
 .nav a {
   text-decoration: none;
 }
-.nav-button, .nav-button-hasInCart {
+.nav-button,
+.nav-button-hasInCart {
   font-size: 20px;
   padding: 16px;
   background-color: rgb(66, 76, 83);
@@ -171,7 +172,8 @@ export default {
   color: white;
   transition: all 0.2s ease;
 }
-.nav-button:hover, .nav-button-hasInCart:hover {
+.nav-button:hover,
+.nav-button-hasInCart:hover {
   transform: translateY(2px);
 }
 .nav-button-hasInCart {
