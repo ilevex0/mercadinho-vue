@@ -103,19 +103,6 @@ export default {
           }
         });
     },
-    changeQuantity(product, qtd) {
-      product.quantity = qtd;
-
-      const index = this.cart.findIndex((item) => item.id === product.id);
-      if (index !== -1) {
-        this.cart.splice(index, 1);
-      }
-      if (qtd != 0) {
-        this.AddedToCartAnimation();
-        this.cart.push(product);
-        this.returnTotalPrice();
-      }
-    },
     clearCart() {
       this.cart = [];
     },

@@ -7,7 +7,7 @@
     </div>
     <div class="purchase-info" v-if="this.cart.length != 0">
       <h2>Total price is</h2>
-      <p class="product-price">R${{ totalPrice.toFixed(2) }}</p>
+      <p class="product-price">R${{ totalPriceCalc.toFixed(2) }}</p>
       <b-button class="btn-green" @click="purchase()"> Purchase </b-button>
     </div>
     <section>
@@ -29,15 +29,15 @@
 
             <div class="button-and-price">
               <p class="product-price">
-                R$ {{ (product.quantity * product.price).toFixed(2) }}
+                R$ {{ (selected[index] * product.price).toFixed(2) }}
               </p>
               <div class="cart_product_button">
                 <div>
                   <p>
                     Quantity:
                     <b-form-select
-                      v-model="selected"
-                      :options="options"
+                      v-model="selected[index]"
+                      :options="options[index]"
                       size="sm"
                       class="mt-3"
                     ></b-form-select>
@@ -66,15 +66,22 @@ export default {
   data() {
     return {
       totalPrice: 0,
-      selected: null,
-      options: [
-        { value: null, text: "1 Unit" },
+      selected: [],
+      options: [],
+    };
+  },
+  created() {
+    this.cart.forEach((product) => {
+      this.selected.push(product.quantity)
+    });
+    this.cart.forEach(() =>
+    this.options.push([
+        { value: 1, text: "1 Unit" },
         { value: 2, text: "2 Units" },
         { value: 3, text: "3 Units" },
         { value: 4, text: "4 Units" },
-        { value: 5, text: "5 Units" },
-      ],
-    };
+        { value: 5, text: "5 Units" },]),
+  );
   },
   props: {
     cart: {
@@ -89,9 +96,6 @@ export default {
   methods: {
     removeFromCart(product) {
       this.$emit("removeFromCart", product);
-    },
-    changeQuantity(product, qtd) {
-      this.$emit("changeQuantity", product, qtd);
     },
     seeProduct(product) {
       this.$emit("seeProduct", product);
@@ -116,6 +120,15 @@ export default {
       this.buyNowClear();
       this.$router.push("/purchasingpage");
     },
+  },
+  computed: {
+    totalPriceCalc() {
+      let total = 0
+      this.cart.forEach((product, i) => {
+        total += parseInt(this.selected[i]) * parseFloat(product.price);
+      });
+      return total;
+    }
   },
 };
 </script>
