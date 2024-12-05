@@ -30,8 +30,8 @@ const routes = [
     component: CartPage,
   },
   {
-    path: "/purchase",
-    name: "purchase",
+    path: "/finished",
+    name: "finished",
     component: PurchasePage,
   },
   {

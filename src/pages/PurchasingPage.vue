@@ -4,12 +4,14 @@
     <ul>
       <div v-if="this.buyNowCart.length > 0">
         <li v-for="(product, index) in this.buyNowCart" :key="index">
-          {{ product.name }}, Quantity: {{ product.quantity }}, R$ {{ (product.price * product.quantity).toFixed(2) }}
+          {{ product.name }}, Quantity: {{ product.quantity }}, R$
+          {{ (product.price * product.quantity).toFixed(2) }}
         </li>
       </div>
       <div v-else>
         <li v-for="(product, index) in this.cart" :key="index">
-          {{ product.name }}, Quantity: {{ product.quantity }}, R$ {{ (product.price * product.quantity).toFixed(2) }}
+          {{ product.name }}, Quantity: {{ product.quantity }}, R$
+          {{ (product.price * product.quantity).toFixed(2) }}
         </li>
       </div>
     </ul>
@@ -17,16 +19,18 @@
     <h1>Payment Method</h1>
     <!-- Método de Pagamento -->
     <div>
-        <label for="payment-method">Payment Method:</label>
-        <select v-model="form.paymentMethod" id="payment-method">
-          <option value="" disabled selected>Select a payment method</option>
-          <option value="credit-card">Credit Card</option>
-          <option value="debit-card">Debit Card</option>
-          <option value="paypal">PayPal</option>
-        </select>
-        <span v-if="errors.paymentMethod" class="error">{{ errors.paymentMethod }}</span>
-      </div>
-    
+      <label for="payment-method">Payment Method:</label>
+      <select v-model="form.paymentMethod" id="payment-method">
+        <option value="" disabled selected>Select a payment method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="debit-card">Debit Card</option>
+        <option value="paypal">PayPal</option>
+      </select>
+      <span v-if="errors.paymentMethod" class="error">{{
+        errors.paymentMethod
+      }}</span>
+    </div>
+
     <h1>Your Personal Information</h1>
     <form @submit.prevent="handleSubmit">
       <!-- Nome -->
@@ -37,7 +41,7 @@
           type="text"
           id="name"
           placeholder="Your full name"
-          :class="{'is-invalid': errors.name}"
+          :class="{ 'is-invalid': errors.name }"
         />
         <span v-if="errors.name" class="error">{{ errors.name }}</span>
       </div>
@@ -50,7 +54,7 @@
           type="email"
           id="email"
           placeholder="Your e-mail"
-          :class="{'is-invalid': errors.email}"
+          :class="{ 'is-invalid': errors.email }"
         />
         <span v-if="errors.email" class="error">{{ errors.email }}</span>
       </div>
@@ -63,7 +67,7 @@
           type="text"
           id="address"
           placeholder="Street, Number, Neighborhood"
-          :class="{'is-invalid': errors.address}"
+          :class="{ 'is-invalid': errors.address }"
         />
         <span v-if="errors.address" class="error">{{ errors.address }}</span>
       </div>
@@ -76,7 +80,7 @@
           type="text"
           id="city"
           placeholder="City"
-          :class="{'is-invalid': errors.city}"
+          :class="{ 'is-invalid': errors.city }"
         />
         <span v-if="errors.city" class="error">{{ errors.city }}</span>
       </div>
@@ -89,7 +93,7 @@
           type="text"
           id="zip"
           placeholder="ZIP"
-          :class="{'is-invalid': errors.zip}"
+          :class="{ 'is-invalid': errors.zip }"
         />
         <span v-if="errors.zip" class="error">{{ errors.zip }}</span>
       </div>
@@ -102,7 +106,7 @@
           type="text"
           id="phone"
           placeholder="Your Phone number"
-          :class="{'is-invalid': errors.phone}"
+          :class="{ 'is-invalid': errors.phone }"
         />
         <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
       </div>
@@ -112,12 +116,10 @@
         <button type="submit">Send and Buy</button>
       </div>
     </form>
-
   </div>
 </template>
 
 <script>
-
 export default {
   name: "PurchasingPage",
   data() {
@@ -146,6 +148,10 @@ export default {
       type: Array,
       required: true,
     },
+    buyNowClear: {
+      type: Function,
+      required: true,
+    },
   },
   methods: {
     handleSubmit() {
@@ -165,19 +171,31 @@ export default {
         this.errors.city = "Please enter a valid city.";
       }
       if (!this.form.zip || !this.validZip(this.form.zip)) {
-        this.errors.zip = "Please enter a valid ZIP code. (Only validades brazil zip codes)";
+        this.errors.zip =
+          "Please enter a valid ZIP code. (Only validades brazil zip codes)";
       }
       if (!this.form.phone || !this.validPhone(this.form.phone)) {
-        this.errors.phone = "Please enter a valid phone number. (Only validades brazil phone numbers)";
+        this.errors.phone =
+          "Please enter a valid phone number. (Only validades brazil phone numbers)";
       }
       if (!this.form.paymentMethod) {
         this.errors.paymentMethod = "Please select a payment method.";
       }
 
       if (Object.keys(this.errors).length === 0) {
-        alert("Formulário enviado com sucesso!");
+        this.paymentConfirmed();
+        this.$swal.fire({
+          title: "Congratulations!",
+          text: "Your transaction has been successfully completed! The fictitious product has been paid for. Keep up the great work!",
+          icon: "success",
+        });
         this.resetForm();
+        this.$router.push('/finished')
       }
+    },
+    paymentConfirmed() {
+      this.$emit("clearCart");
+      this.buyNowClear();
     },
     validEmail(email) {
       const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -233,7 +251,7 @@ select {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 4px;
