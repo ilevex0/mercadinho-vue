@@ -44,7 +44,7 @@
         </ul>
       </div>
       <div>
-        <h2>R$ {{ seeproduct[0].price.toFixed(2) }}</h2>
+        <h2>R$ {{ totalPriceCalc.toFixed(2) }}</h2>
         <p><b>in Stock.</b></p>
         <div>
           <p>
@@ -166,6 +166,19 @@ export default {
         product.quantity = parseInt(this.selected)
       }
       this.addProduct(product)
+    }
+  },
+  computed: {
+    totalPriceCalc() {
+      let value
+      if(this.selected == null) {
+        value = 1;
+      }
+      else {
+        value = parseInt(this.selected)
+      }
+      
+      return value * parseFloat(this.seeproduct[0].price)
     }
   }
 };

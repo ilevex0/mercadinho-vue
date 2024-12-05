@@ -126,6 +126,7 @@ export default {
       let total = 0
       this.cart.forEach((product, i) => {
         total += parseInt(this.selected[i]) * parseFloat(product.price);
+        product.quantity = parseInt(this.selected[i])
       });
       return total;
     }
