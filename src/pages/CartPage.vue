@@ -19,20 +19,20 @@
             :src="require(`@/assets/products_images/${product.image}.png`)"
             :alt="product.imageAlt"
             class="product-image"
-            @click="changeProduct(product)"
+            @click="seeProduct(product)"
           />
           <div>
-            <p class="product-title" @click="changeProduct(product)">
+            <p class="product-title" @click="seeProduct(product)">
               {{ product.name }}
             </p>
-            <p class="product-description" @click="changeProduct(product)">
+            <p class="product-description" @click="seeProduct(product)">
               {{ product.description }}
             </p>
 
             <div class="button-and-price">
               <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
               <div class="cart_product_button">
-                <b-button class="btn-blue" @click="changeProduct(product)">
+                <b-button class="btn-blue" @click="changeQuantity(product)">
                   Qtd: {{ product.quantity }}
                 </b-button>
                 <b-button class="btn-red" @click="removeFromCart(product)"
@@ -69,8 +69,11 @@ export default {
     removeFromCart(product) {
       this.$emit("removeFromCart", product);
     },
-    changeProduct(product) {
+    changeQuantity(product) {
       this.$emit("changeQuantity", product);
+    },
+    seeProduct(product) {
+      this.$emit("seeProduct", product);
     },
     purchase() {
       this.$swal
