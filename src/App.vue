@@ -20,6 +20,7 @@
     </div>
     <div class="div-nav-detail"></div>
     <router-view
+      :addProduct="addProduct"
       @addProduct="addProduct"
       @seeProduct="seeProduct"
       :cart="cart"
@@ -56,7 +57,43 @@ export default {
       });
     },
     addProduct(product) {
-      console.log("adding", product);
+      const swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-primary",
+          cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+      });
+      swalWithBootstrapButtons
+        .fire({
+          title: "Add to cart?",
+          text: "When confirmed, the page will go to your cart.",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Yes, please!",
+          cancelButtonText: "Not yet!",
+          reverseButtons: false,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            const index = this.cart.findIndex((item) => item.id === product.id);
+
+            if (index !== -1) {
+              this.cart.splice(index, 1);
+            }
+            if (product.quantity >= 1) {
+              this.cart.push(product);
+            }
+            this.$swal.fire({
+              title: "Added in Cart!",
+              text: "The product has been added!",
+              icon: "success",
+              confirmButtonText: "OK",
+              confirmButtonColor: "#0d6efd",
+            });
+            this.$router.push("/my-cart");
+          }
+        });
     },
     changeQuantity(product) {
       this.$swal
