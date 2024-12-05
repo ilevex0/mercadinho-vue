@@ -8,9 +8,7 @@
     <div class="purchase-info" v-if="this.cart.length != 0">
       <h2>Total price is</h2>
       <p class="product-price">R${{ totalPrice.toFixed(2) }}</p>
-      <b-button class="btn-green" @click="purchase()">
-        Purchase
-      </b-button>
+      <b-button class="btn-green" @click="purchase()"> Purchase </b-button>
     </div>
     <section>
       <div class="products">
@@ -30,11 +28,21 @@
             </p>
 
             <div class="button-and-price">
-              <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
+              <p class="product-price">
+                R$ {{ (product.quantity * product.price).toFixed(2) }}
+              </p>
               <div class="cart_product_button">
-                <b-button class="btn-blue" @click="changeQuantity(product)">
-                  Qtd: {{ product.quantity }}
-                </b-button>
+                <div>
+                  <p>
+                    Quantity:
+                    <b-form-select
+                      v-model="selected"
+                      :options="options"
+                      size="sm"
+                      class="mt-3"
+                    ></b-form-select>
+                  </p>
+                </div>
                 <b-button class="btn-red" @click="removeFromCart(product)"
                   ><img
                     class="btn-red-image"
@@ -55,17 +63,22 @@
 <script>
 export default {
   name: "CartPage",
+  data() {
+    return {
+      totalPrice: 0,
+      selected: null,
+      options: [
+        { value: null, text: "1 Unit" },
+        { value: 2, text: "2 Units" },
+        { value: 3, text: "3 Units" },
+        { value: 4, text: "4 Units" },
+        { value: 5, text: "5 Units" },
+      ],
+    };
+  },
   props: {
     cart: {
       type: Array,
-      required: true,
-    },
-    totalPrice: {
-      type: Number,
-      required: true,
-    },
-    buyNow: {
-      type: Function,
       required: true,
     },
     buyNowClear: {
@@ -77,8 +90,8 @@ export default {
     removeFromCart(product) {
       this.$emit("removeFromCart", product);
     },
-    changeQuantity(product) {
-      this.$emit("changeQuantity", product);
+    changeQuantity(product, qtd) {
+      this.$emit("changeQuantity", product, qtd);
     },
     seeProduct(product) {
       this.$emit("seeProduct", product);
@@ -101,8 +114,7 @@ export default {
     },
     confirmPurchase() {
       this.buyNowClear();
-      this.buyNow(this.cart);
-      this.$router.push("/purchasingpage")
+      this.$router.push("/purchasingpage");
     },
   },
 };

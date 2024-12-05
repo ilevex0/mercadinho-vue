@@ -30,7 +30,6 @@
       :APIRequest="APIRequest"
       @removeFromCart="removeFromCart"
       @clearCart="clearCart"
-      :totalPrice="totalPrice"
     ></router-view>
     <FooterComponent />
   </div>
@@ -50,7 +49,6 @@ export default {
         "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json",
       cart: [],
       buyNowCart: [],
-      totalPrice: 0,
     };
   },
   methods: {
@@ -58,7 +56,7 @@ export default {
       this.buyNowCart = [];
     },
     buyNow(product) {
-      this.buyNowCart.push(product)
+      this.buyNowCart.push(product);
     },
     seeProduct(product) {
       this.$router.push({
@@ -105,38 +103,18 @@ export default {
           }
         });
     },
-    changeQuantity(product) {
-      this.$swal
-        .fire({
-          title: "How much products?",
-          icon: "question",
-          confirmButtonColor: "#0d6efd",
-          showCancelButton: true,
-          cancelButtonColor: "#dc3545",
-          input: "range",
-          inputAttributes: {
-            min: "0",
-            max: "10",
-            step: "1",
-          },
-          inputValue: 1,
-          inputLabel: "The Quantity",
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            product.quantity = result.value;
+    changeQuantity(product, qtd) {
+      product.quantity = qtd;
 
-            const index = this.cart.findIndex((item) => item.id === product.id);
-            if (index !== -1) {
-              this.cart.splice(index, 1);
-            }
-            if (result.value != 0) {
-              this.AddedToCartAnimation();
-              this.cart.push(product);
-              this.returnTotalPrice();
-            }
-          }
-        });
+      const index = this.cart.findIndex((item) => item.id === product.id);
+      if (index !== -1) {
+        this.cart.splice(index, 1);
+      }
+      if (qtd != 0) {
+        this.AddedToCartAnimation();
+        this.cart.push(product);
+        this.returnTotalPrice();
+      }
     },
     clearCart() {
       this.cart = [];
@@ -163,21 +141,12 @@ export default {
           if (result.isConfirmed) {
             const index = this.cart.findIndex((item) => item.id === product.id);
 
-            if (index > -1) this.cart.splice(index, 1), this.returnTotalPrice();
+            if (index > -1) this.cart.splice(index, 1);
 
             swalWithBootstrapButtons.fire({
               title: "Deleted!",
               text: "Your cart has been updated.",
               icon: "success",
-            });
-          } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === this.$swal.DismissReason.cancel
-          ) {
-            swalWithBootstrapButtons.fire({
-              title: "Cancelled",
-              text: "The product is safe :)",
-              icon: "error",
             });
           }
         });
@@ -197,12 +166,6 @@ export default {
         confirmButtonText: "Continue",
         confirmButtonClass: "btn btn-primary",
       });
-    },
-    returnTotalPrice() {
-      this.totalPrice = this.cart.reduce(
-        (total, product) => total + product.quantity * product.price,
-        0
-      );
     },
   },
 };
