@@ -136,7 +136,7 @@ export default {
   },
   data() {
     return {
-      showButtonsMobile: window.innerWidth > 690,
+      showButtonsMobile: window.innerWidth > 759,
       hasProduct: false,
       seeproduct: [],
       ratingValue: 4.555,
@@ -292,7 +292,7 @@ label {
   font-size: clamp(1rem, 1.2vw, 1.2rem);
   margin-bottom: 10px;
 }
-@media (max-width: 690px) {
+@media (max-width: 759px) {
   .ProductDetailsPage {
     display: flex;
     justify-content: center;
