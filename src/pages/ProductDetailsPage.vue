@@ -19,6 +19,27 @@
           ></b-form-rating>
           <span>(283)</span>
         </div>
+        <div v-if="!showButtonsMobile">
+          <hr>
+          <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+          <div>
+            <p>
+              Quantity:
+              <b-form-select
+                v-model="selected"
+                :options="options"
+                size="sm"
+                class="mt-3"
+              ></b-form-select>
+            </p>
+          </div>
+          <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
+            Buy Now!
+          </b-button>
+          <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
+            Add to cart!
+          </b-button>
+        </div>
         <hr />
         <h3>Choose one</h3>
         <p class="product-description-text">Color: <b>Primary</b></p>
@@ -44,8 +65,8 @@
           </li>
         </ul>
       </div>
-      <div>
-        <h2>R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+      <div v-if="showButtonsMobile">
+        <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
         <p><b>in Stock.</b></p>
         <div>
           <p>
@@ -111,6 +132,7 @@ export default {
   },
   data() {
     return {
+      showButtonsMobile: window.innerWidth > 690,
       hasProduct: false,
       seeproduct: [],
       ratingValue: 4.555,
@@ -124,6 +146,12 @@ export default {
       ],
       statusIsGift: false,
     };
+  },
+  mounted() {
+    window.addEventListener("resize", this.updateButtonVisibility);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.updateButtonVisibility);
   },
   created() {
     let productimage = this.$route.params.productimage;
@@ -147,46 +175,49 @@ export default {
     });
   },
   methods: {
+    updateButtonVisibility() {
+      this.showButtonsMobile = window.innerWidth > 690;
+    },
     callBuyNow(product) {
       this.buyNowClear();
-      
+
       if (this.selected == null) {
         product.quantity = 1;
-      }
-      else {
-        product.quantity = parseInt(this.selected)
+      } else {
+        product.quantity = parseInt(this.selected);
       }
 
       this.buyNow(product);
-      this.$router.push("/purchasingpage")
+      this.$router.push("/purchasingpage");
     },
     addProductInCart(product) {
       if (this.selected == null) {
         product.quantity = 1;
+      } else {
+        product.quantity = parseInt(this.selected);
       }
-      else {
-        product.quantity = parseInt(this.selected)
-      }
-      this.addProduct(product)
-    }
+      this.addProduct(product);
+    },
   },
   computed: {
     totalPriceCalc() {
-      let value
-      if(this.selected == null) {
+      let value;
+      if (this.selected == null) {
         value = 1;
+      } else {
+        value = parseInt(this.selected);
       }
-      else {
-        value = parseInt(this.selected)
-      }
-      
-      return value * parseFloat(this.seeproduct[0].price)
-    }
-  }
+
+      return value * parseFloat(this.seeproduct[0].price);
+    },
+  },
 };
 </script>
 
 <style scoped>
+.price {
+  white-space: nowrap;
+}
 .margin-for-footer {
   margin-bottom: 800px;
 }
@@ -222,7 +253,8 @@ export default {
 .product-description-text {
   font-size: clamp(0.7rem, 1.2vw, 1rem);
 }
-.product-description h1, h3 {
+.product-description h1,
+h3 {
   font-size: clamp(1rem, 1.8vw, 1.4rem);
   font-weight: 600;
 }
@@ -253,27 +285,27 @@ export default {
 }
 @media (max-width: 690px) {
   .ProductDetailsPage {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0%;
-}
-.img-div{
-  width: 50%;
-}
-.product-detail {
-  display: flex;
-  flex-direction: column;
-  text-align: justify;
-  gap: 0px;
-  padding: 10px;
-  border-radius: 30px;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-}
-.product-description-text{
-  padding-right: 2em;
-}
+    display: flex;
+    justify-content: center;
+    margin: 30px 0%;
+  }
+  .img-div {
+    width: 50%;
+  }
+  .product-detail {
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    gap: 0px;
+    padding: 10px;
+    border-radius: 30px;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+  }
+  .product-description-text {
+    padding-right: 2em;
+  }
 }
 </style>
