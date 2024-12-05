@@ -1,10 +1,11 @@
 <template>
   <div class="ProductDetailsPage">
     <div class="product-detail" v-if="hasProduct">
-      <div>
+      <div class="img-div">
         <img
           :src="require(`@/assets/products_images/${seeproduct[0].image}.png`)"
           :alt="seeproduct[0].imageAlt"
+          class="product-image"
         />
       </div>
       <div class="product-description">
@@ -20,11 +21,11 @@
         </div>
         <hr />
         <h3>Choose one</h3>
-        <p>Color: <b>Primary</b></p>
+        <p class="product-description-text">Color: <b>Primary</b></p>
         <h3>About this product</h3>
 
         <hr />
-        <ul>
+        <ul class="product-description-text">
           <li>{{ seeproduct[0].description }}</li>
           <li>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
@@ -186,16 +187,22 @@ export default {
 
 <style scoped>
 .ProductDetailsPage {
-  margin: 30px 300px;
+  display: flex;
+  justify-content: center;
+
+  margin: 30px 10%;
 }
 .product-detail {
   display: flex;
-  justify-items: center;
   text-align: justify;
   gap: 30px;
   background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 30px;
+}
+.product-image {
+  width: 100%;
+  min-width: 150px;
 }
 .rating {
   display: flex;
@@ -205,10 +212,14 @@ export default {
   gap: 5px;
 }
 .product-description {
-  width: 30%;
+  width: 100%;
+  max-width: 500px;
 }
-.product-description h1 {
-  font-size: 24px;
+.product-description-text {
+  font-size: clamp(0.7rem, 1.2vw, 1rem);
+}
+.product-description h1, h3 {
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
   font-weight: 600;
 }
 .btn-blue {
@@ -235,5 +246,27 @@ export default {
 .btn-blue:active {
   background-color: #004085; /* Cor ainda mais escura no clique */
   transform: translateY(2px); /* Efeito de pressionar o botão */
+}
+@media (max-width: 690px) {
+  .ProductDetailsPage {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0%;
+}
+.img-div{
+  width: 50%;
+}
+.product-detail {
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  gap: 0px;
+  padding: 10px;
+  border-radius: 30px;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+}
 }
 </style>
