@@ -180,7 +180,7 @@ export default {
   },
   methods: {
     updateButtonVisibility() {
-      this.showButtonsMobile = window.innerWidth > 690;
+      this.showButtonsMobile = window.innerWidth > 759;
     },
     callBuyNow(product) {
       this.buyNowClear();
