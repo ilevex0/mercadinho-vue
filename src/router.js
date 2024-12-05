@@ -7,6 +7,7 @@ import CartPage from "./pages/CartPage.vue";
 import HomePage from "./pages/HomePage.vue";
 import PurchasePage from "./pages/PurchasePage.vue";
 import ProductDetailsPage from "./pages/ProductDetailsPage.vue"
+import PurchasingPage from "./pages/PurchasingPage.vue";
 
 // Informar ao Vue que vamos usar o Vue Router
 Vue.use(Router);
@@ -38,6 +39,11 @@ const routes = [
     name: "productdetailspage",
     component: ProductDetailsPage,
   },
+  {
+    path: "/purchasingpage",
+    name: "purchasingpage",
+    component: PurchasingPage,
+  }
 ];
 
 // Criar e exportar o roteador

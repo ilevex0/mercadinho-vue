@@ -57,7 +57,7 @@
             ></b-form-select>
           </p>
         </div>
-        <b-button class="btn-blue" @click="changeProduct(seeproduct[0])">
+        <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
           Buy Now!
         </b-button>
         <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
@@ -92,6 +92,14 @@ export default {
     },
     cart: {
       type: Array,
+      required: true,
+    },
+    buyNow: {
+      type: Function,
+      required: true,
+    },
+    buyNowClear: {
+      type: Function,
       required: true,
     },
     addProduct: {
@@ -137,6 +145,19 @@ export default {
     });
   },
   methods: {
+    callBuyNow(product) {
+      this.buyNowClear();
+      
+      if (this.selected == null) {
+        product.quantity = 1;
+      }
+      else {
+        product.quantity = parseInt(this.selected)
+      }
+
+      this.buyNow(product);
+      this.$router.push("/purchasingpage")
+    },
     addProductInCart(product) {
       if (this.selected == null) {
         product.quantity = 1;

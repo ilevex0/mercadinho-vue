@@ -24,6 +24,9 @@
       @addProduct="addProduct"
       @seeProduct="seeProduct"
       :cart="cart"
+      :buyNow="buyNow"
+      :buyNowCart="buyNowCart"
+      :buyNowClear="buyNowClear"
       :APIRequest="APIRequest"
       @removeFromCart="removeFromCart"
       @clearCart="clearCart"
@@ -46,10 +49,17 @@ export default {
       APIRequest:
         "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json",
       cart: [],
+      buyNowCart: [],
       totalPrice: 0,
     };
   },
   methods: {
+    buyNowClear() {
+      this.buyNowCart = [];
+    },
+    buyNow(product) {
+      this.buyNowCart.push(product)
+    },
     seeProduct(product) {
       this.$router.push({
         name: "productdetailspage",

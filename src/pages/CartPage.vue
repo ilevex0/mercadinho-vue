@@ -64,6 +64,14 @@ export default {
       type: Number,
       required: true,
     },
+    buyNow: {
+      type: Function,
+      required: true,
+    },
+    buyNowClear: {
+      type: Function,
+      required: true,
+    },
   },
   methods: {
     removeFromCart(product) {
@@ -92,29 +100,9 @@ export default {
         });
     },
     confirmPurchase() {
-      let timerInterval;
-      this.$swal
-        .fire({
-          title: "Buying it!",
-          html: "Wait a moment. <b></b> milliseconds.",
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: () => {
-            this.$swal.showLoading();
-            const timer = this.$swal.getPopup().querySelector("b");
-            timerInterval = setInterval(() => {
-              timer.textContent = `${this.$swal.getTimerLeft()}`;
-            }, 100);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        })
-        .then(() => {
-          /* Read more about handling dismissals below */
-          this.$emit("clearCart");
-          this.$router.push("/purchase");
-        });
+      this.buyNowClear();
+      this.buyNow(this.cart);
+      this.$router.push("/purchasingpage")
     },
   },
 };
