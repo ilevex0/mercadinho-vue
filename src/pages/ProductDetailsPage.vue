@@ -77,6 +77,7 @@
           </b-form-checkbox>
         </div>
       </div>
+      <div class="margin-for-footer"></div>
     </div>
   </div>
 </template>
@@ -186,6 +187,9 @@ export default {
 </script>
 
 <style scoped>
+.margin-for-footer {
+  margin-bottom: 800px;
+}
 .ProductDetailsPage {
   display: flex;
   justify-content: center;
