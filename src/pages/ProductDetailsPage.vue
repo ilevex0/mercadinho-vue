@@ -20,10 +20,10 @@
           <span>(283)</span>
         </div>
         <div v-if="!showButtonsMobile">
-          <hr>
+          <hr />
           <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
           <div>
-            <p>
+            <label>
               Quantity:
               <b-form-select
                 v-model="selected"
@@ -31,14 +31,16 @@
                 size="sm"
                 class="mt-3"
               ></b-form-select>
-            </p>
+            </label>
           </div>
+          <div class="btn-mobile-container">
           <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
             Buy Now!
           </b-button>
           <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
             Add to cart!
           </b-button>
+        </div>
         </div>
         <hr />
         <h3>Choose one</h3>
@@ -69,7 +71,7 @@
         <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
         <p><b>in Stock.</b></p>
         <div>
-          <p>
+          <label>
             Quantity:
             <b-form-select
               v-model="selected"
@@ -77,14 +79,16 @@
               size="sm"
               class="mt-3"
             ></b-form-select>
-          </p>
+          </label>
         </div>
-        <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
-          Buy Now!
-        </b-button>
-        <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
-          Add to cart!
-        </b-button>
+        <div>
+          <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
+            Buy Now!
+          </b-button>
+          <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
+            Add to cart!
+          </b-button>
+        </div>
         <hr />
         <div>
           <b-form-checkbox
@@ -283,6 +287,11 @@ h3 {
   background-color: #004085; /* Cor ainda mais escura no clique */
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
+label {
+  white-space: nowrap;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  margin-bottom: 10px;
+}
 @media (max-width: 690px) {
   .ProductDetailsPage {
     display: flex;
@@ -306,6 +315,17 @@ h3 {
   }
   .product-description-text {
     padding-right: 2em;
+  }
+  .btn-mobile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn-blue {
+    width: 80%;
+  }
+  .price {
+    margin: 0px;
   }
 }
 </style>
