@@ -272,5 +272,8 @@ export default {
   justify-items: center;
   align-items: center;
 }
+.product-description-text{
+  padding-right: 2em;
+}
 }
 </style>
