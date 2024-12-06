@@ -1,121 +1,138 @@
 <template>
   <div class="PurchasingPage">
-    <h1>Purchasing...</h1>
-    <ul>
-      <div v-if="this.buyNowCart.length > 0">
-        <li v-for="(product, index) in this.buyNowCart" :key="index">
-          {{ product.name }}, Quantity: {{ product.quantity }}, R$
-          {{ (product.price * product.quantity).toFixed(2) }}
-        </li>
-      </div>
-      <div v-else>
-        <li v-for="(product, index) in this.cart" :key="index">
-          {{ product.name }}, Quantity: {{ product.quantity }}, R$
-          {{ (product.price * product.quantity).toFixed(2) }}
-        </li>
-      </div>
-    </ul>
+    <div class="items">
+      <h1 class="purchasing-items">Items</h1>
+      <div class="all-items">
+        <ul>
+          <div v-if="this.buyNowCart.length > 0">
+            <div v-for="(product, index) in this.buyNowCart" :key="index">
+              <li>
+                <p>{{ product.name }}</p>
+                <p>Quantity: {{ product.quantity }}, R$
+                  {{ (product.price * product.quantity).toFixed(2) }}</p>
 
-    <h1>Payment Method</h1>
-    <!-- Método de Pagamento -->
-    <div>
-      <label for="payment-method">Payment Method:</label>
-      <select v-model="form.paymentMethod" id="payment-method">
-        <option value="" disabled selected>Select a payment method</option>
-        <option value="credit-card">Credit Card</option>
-        <option value="debit-card">Debit Card</option>
-        <option value="paypal">PayPal</option>
-      </select>
-      <span v-if="errors.paymentMethod" class="error">{{
-        errors.paymentMethod
-      }}</span>
+              </li>
+              <hr>
+            </div>
+          </div>
+          <div v-else>
+            <div v-for="(product, index) in this.cart" :key="index">
+              <li>
+                <p>{{ product.name }}</p>
+                <p>Quantity: {{ product.quantity }}, R$
+                  {{ (product.price * product.quantity).toFixed(2) }}</p>
+                </li>
+                <hr>
+            </div>
+          </div>
+        </ul>
+      </div>
     </div>
-
-    <h1>Your Personal Information</h1>
-    <form @submit.prevent="handleSubmit">
-      <!-- Nome -->
+    <!-- Método de Pagamento -->
+    <h2>Total Price: R$ {{ totalPrice.toFixed(2) }}</h2>
+    <hr>
+    <div class="personal-information">
+      <h1>Your Personal Information</h1>
       <div>
-        <label for="name">Name:</label>
-        <input
-          v-model="form.name"
-          type="text"
-          id="name"
-          placeholder="Your full name"
-          :class="{ 'is-invalid': errors.name }"
-        />
-        <span v-if="errors.name" class="error">{{ errors.name }}</span>
+        <label for="payment-method">Payment Method:</label>
+        <select v-model="form.paymentMethod" id="payment-method">
+          <option value="" disabled selected>Select a payment method</option>
+          <option value="credit-card">Credit Card</option>
+          <option value="debit-card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+        </select>
+        <span v-if="errors.paymentMethod" class="error">{{
+          errors.paymentMethod
+        }}</span>
       </div>
 
-      <!-- E-mail -->
-      <div>
-        <label for="email">E-mail:</label>
-        <input
+      <form @submit.prevent="handleSubmit">
+        <!-- Nome -->
+        <div>
+          <label for="name">Name:</label>
+          <input
+            v-model="form.name"
+            type="text"
+            id="name"
+            placeholder="Your full name"
+            :class="{ 'is-invalid': errors.name }"
+          />
+          <span v-if="errors.name" class="error">{{ errors.name }}</span>
+        </div>
+        
+        <!-- E-mail -->
+        <div>
+          <label for="email">E-mail:</label>
+          <input
           v-model="form.email"
           type="email"
           id="email"
           placeholder="Your e-mail"
-          :class="{ 'is-invalid': errors.email }"
-        />
-        <span v-if="errors.email" class="error">{{ errors.email }}</span>
-      </div>
+            :class="{ 'is-invalid': errors.email }"
+          />
+          <span v-if="errors.email" class="error">{{ errors.email }}</span>
+        </div>
 
-      <!-- Endereço -->
-      <div>
-        <label for="address">Address:</label>
-        <input
-          v-model="form.address"
-          type="text"
-          id="address"
-          placeholder="Street, Number, Neighborhood"
-          :class="{ 'is-invalid': errors.address }"
-        />
-        <span v-if="errors.address" class="error">{{ errors.address }}</span>
-      </div>
+        <!-- Telefone -->
+        <div>
+          <label for="phone">Phone number:</label>
+          <input
+            v-model="form.phone"
+            type="text"
+            id="phone"
+            placeholder="Your Phone number"
+            :class="{ 'is-invalid': errors.phone }"
+          />
+          <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+        </div>
+        
+        <!-- Endereço -->
+        <div>
+          <label for="address">Address:</label>
+          <input
+            v-model="form.address"
+            type="text"
+            id="address"
+            placeholder="Street, Number, Neighborhood"
+            :class="{ 'is-invalid': errors.address }"
+          />
+          <span v-if="errors.address" class="error">{{ errors.address }}</span>
+        </div>
 
-      <!-- Cidade -->
-      <div>
-        <label for="city">City:</label>
-        <input
-          v-model="form.city"
-          type="text"
-          id="city"
-          placeholder="City"
-          :class="{ 'is-invalid': errors.city }"
-        />
-        <span v-if="errors.city" class="error">{{ errors.city }}</span>
-      </div>
+        <!-- Cidade -->
+        <div>
+          <label for="city">City:</label>
+          <input
+            v-model="form.city"
+            type="text"
+            id="city"
+            placeholder="City"
+            :class="{ 'is-invalid': errors.city }"
+          />
+          <span v-if="errors.city" class="error">{{ errors.city }}</span>
+        </div>
 
-      <!-- CEP -->
-      <div>
-        <label for="zip">ZIP:</label>
-        <input
-          v-model="form.zip"
-          type="text"
-          id="zip"
-          placeholder="ZIP"
-          :class="{ 'is-invalid': errors.zip }"
-        />
-        <span v-if="errors.zip" class="error">{{ errors.zip }}</span>
-      </div>
+        <!-- CEP -->
+        <div>
+          <label for="zip">ZIP:</label>
+          <input
+            v-model="form.zip"
+            type="text"
+            id="zip"
+            placeholder="ZIP"
+            :class="{ 'is-invalid': errors.zip }"
+          />
+          <span v-if="errors.zip" class="error">{{ errors.zip }}</span>
+        </div>
 
-      <!-- Telefone -->
-      <div>
-        <label for="phone">Phone number:</label>
-        <input
-          v-model="form.phone"
-          type="text"
-          id="phone"
-          placeholder="Your Phone number"
-          :class="{ 'is-invalid': errors.phone }"
-        />
-        <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
-      </div>
 
-      <!-- Botão de enviar -->
-      <div>
-        <button type="submit">Send and Buy</button>
-      </div>
-    </form>
+        <!-- Botão de enviar -->
+        <div>
+          <button type="submit">Send and Buy</button>
+        </div>
+      </form>
+    </div>
+    <div class="footer-margin"></div>
   </div>
 </template>
 
@@ -137,7 +154,23 @@ export default {
         cvv: "",
       },
       errors: {},
+      totalPrice: 0,
     };
+  },
+  created() {
+    if (this.buyNowCart.length > 0) {
+      this.totalPrice =
+        parseInt(this.buyNowCart[0].quantity) *
+        parseFloat(this.buyNowCart[0].price);
+    } else if (this.cart.length > 0) {
+      this.totalPrice = 0;
+      this.cart.forEach((product) => {
+        this.totalPrice +=
+          parseInt(product.quantity) * parseFloat(product.price);
+      });
+    } else {
+      this.$router.push("/");
+    }
   },
   props: {
     cart: {
@@ -190,7 +223,7 @@ export default {
           icon: "success",
         });
         this.resetForm();
-        this.$router.push('/finished')
+        this.$router.push("/finished");
       }
     },
     paymentConfirmed() {
@@ -269,5 +302,46 @@ button:hover {
 
 .is-invalid {
   border-color: red;
+}
+li {
+  margin-bottom: 5px;
+}
+.personal-information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+}
+div {
+  margin-bottom: 10px;
+}
+.footer-margin {
+  margin: 150px;
+}
+select, input {
+  width: 18.5em;
+}
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  text-align: start;
+}
+.all-items {
+  max-width: 300px;
+}
+@media (max-width: 768px) {
+  .items {
+    margin-left: 20px;
+    margin-right: 35px;
+  }
+  .personal-information {
+    margin: 5px;
+  }
 }
 </style>
