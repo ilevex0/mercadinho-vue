@@ -84,7 +84,6 @@
         <div>
           <label for="email">E-mail:</label>
           <input
-            v-mask="'#*#@#*#.#*#'"
             v-model="form.email"
             type="email"
             id="email"
