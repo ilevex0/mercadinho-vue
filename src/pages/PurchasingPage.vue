@@ -296,6 +296,7 @@ select {
 
 button {
   width: 100%;
+  max-width: 300px;
   padding: 10px;
   background-color: #4caf50;
   color: white;
