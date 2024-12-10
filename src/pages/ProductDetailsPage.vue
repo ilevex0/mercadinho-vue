@@ -117,10 +117,6 @@ export default {
       type: String,
       required: true,
     },
-    cart: {
-      type: Array,
-      required: true,
-    },
     buyNow: {
       type: Function,
       required: true,

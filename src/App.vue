@@ -4,7 +4,7 @@
       <nav class="nav">
         <router-link to="/"><li class="nav-button">Home</li></router-link>
         <router-link to="/about"><li class="nav-button">About</li></router-link>
-        <router-link v-if="cart <= 0" to="/my-cart"
+        <router-link v-if="this.$store.state.cart <= 0" to="/my-cart"
           ><img
             class="nav-button"
             src="./assets/shopping_bag.svg"
@@ -23,9 +23,7 @@
       :addProduct="addProduct"
       @addProduct="addProduct"
       @seeProduct="seeProduct"
-      :cart="cart"
       :buyNow="buyNow"
-      :buyNowCart="buyNowCart"
       :buyNowClear="buyNowClear"
       :APIRequest="APIRequest"
       @removeFromCart="removeFromCart"
@@ -47,16 +45,15 @@ export default {
     return {
       APIRequest:
         "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json",
-      cart: [],
-      buyNowCart: [],
     };
   },
   methods: {
     buyNowClear() {
-      this.buyNowCart = [];
+      this.$store.commit('buyNowClear')
     },
     buyNow(product) {
-      this.buyNowCart.push(product);
+      this.$store.commit('buyNow', product)
+
     },
     seeProduct(product) {
       this.$router.push({
@@ -84,13 +81,13 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const index = this.cart.findIndex((item) => item.id === product.id);
+            const index = this.$store.state.cart.findIndex((item) => item.id === product.id);
 
             if (index !== -1) {
-              this.cart.splice(index, 1);
+              this.$store.state.cart.splice(index, 1);
             }
             if (product.quantity >= 1) {
-              this.cart.push(product);
+              this.$store.state.cart.push(product);
             }
             this.$swal.fire({
               title: "Added in Cart!",
@@ -104,7 +101,7 @@ export default {
         });
     },
     clearCart() {
-      this.cart = [];
+      this.$store.commit('clearCart')
     },
     removeFromCart(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
@@ -126,9 +123,9 @@ export default {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            const index = this.cart.findIndex((item) => item.id === product.id);
+            const index = this.$store.state.cart.findIndex((item) => item.id === product.id);
 
-            if (index > -1) this.cart.splice(index, 1);
+            if (index > -1) this.$store.state.cart.splice(index, 1);
 
             swalWithBootstrapButtons.fire({
               title: "Deleted!",

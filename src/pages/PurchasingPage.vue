@@ -4,8 +4,8 @@
       <h1 class="purchasing-items">Items</h1>
       <div class="all-items">
         <ul>
-          <div v-if="this.buyNowCart.length > 0">
-            <div v-for="(product, index) in this.buyNowCart" :key="index">
+          <div v-if="this.$store.state.buyNowCart.length > 0">
+            <div v-for="(product, index) in this.$store.state.buyNowCart" :key="index">
               <li>
                 <p>{{ product.name }}</p>
                 <p>Quantity: {{ product.quantity }}, R$
@@ -16,7 +16,7 @@
             </div>
           </div>
           <div v-else>
-            <div v-for="(product, index) in this.cart" :key="index">
+            <div v-for="(product, index) in this.$store.state.cart" :key="index">
               <li>
                 <p>{{ product.name }}</p>
                 <p>Quantity: {{ product.quantity }}, R$
@@ -158,13 +158,13 @@ export default {
     };
   },
   created() {
-    if (this.buyNowCart.length > 0) {
+    if (this.$store.state.buyNowCart.length > 0) {
       this.totalPrice =
-        parseInt(this.buyNowCart[0].quantity) *
-        parseFloat(this.buyNowCart[0].price);
-    } else if (this.cart.length > 0) {
+        parseInt(this.$store.state.buyNowCart[0].quantity) *
+        parseFloat(this.$store.state.buyNowCart[0].price);
+    } else if (this.$store.state.cart.length > 0) {
       this.totalPrice = 0;
-      this.cart.forEach((product) => {
+      this.$store.state.cart.forEach((product) => {
         this.totalPrice +=
           parseInt(product.quantity) * parseFloat(product.price);
       });
@@ -173,14 +173,6 @@ export default {
     }
   },
   props: {
-    cart: {
-      type: Array,
-      required: true,
-    },
-    buyNowCart: {
-      type: Array,
-      required: true,
-    },
     buyNowClear: {
       type: Function,
       required: true,

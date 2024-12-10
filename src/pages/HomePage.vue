@@ -63,10 +63,6 @@ export default {
       });
   },
   props: {
-    cart: {
-      type: Array,
-      required: true,
-    },
     APIRequest: { 
       String,
       required: true,

@@ -1,18 +1,18 @@
 <template>
   <div class="CartPage">
-    <h1>My Cart ({{ this.cart.length }})</h1>
+    <h1>My Cart ({{ this.$store.state.cart.length }})</h1>
     <hr />
-    <div class="cart-empty" v-if="this.cart.length <= 0">
+    <div class="cart-empty" v-if="this.$store.state.cart.length <= 0">
       <p>Your cart is empty right now :c</p>
     </div>
-    <div class="purchase-info" v-if="this.cart.length != 0">
+    <div class="purchase-info" v-if="this.$store.state.cart.length != 0">
       <h2>Total price is</h2>
       <p class="product-price">R${{ totalPriceCalc.toFixed(2) }}</p>
       <b-button class="btn-green" @click="purchase()"> Purchase </b-button>
     </div>
     <section>
       <div class="products">
-        <div class="product" v-for="(product, index) in this.cart" :key="index">
+        <div class="product" v-for="(product, index) in this.$store.state.cart" :key="index">
           <img
             :src="require(`@/assets/products_images/${product.image}.png`)"
             :alt="product.imageAlt"
@@ -55,7 +55,7 @@
         </div>
       </div>
     </section>
-    <div class="margin-footer" v-if="this.cart.length <= 0"></div>
+    <div class="margin-footer" v-if="this.$store.state.cart.length <= 0"></div>
     <div class="margin-footer-if-cart" v-else></div>
   </div>
 </template>
@@ -71,10 +71,10 @@ export default {
     };
   },
   created() {
-    this.cart.forEach((product) => {
+    this.$store.state.cart.forEach((product) => {
       this.selected.push(product.quantity)
     });
-    this.cart.forEach(() =>
+    this.$store.state.cart.forEach(() =>
     this.options.push([
         { value: 1, text: "1 Unit" },
         { value: 2, text: "2 Units" },
@@ -84,10 +84,6 @@ export default {
   );
   },
   props: {
-    cart: {
-      type: Array,
-      required: true,
-    },
     buyNowClear: {
       type: Function,
       required: true,
@@ -124,7 +120,7 @@ export default {
   computed: {
     totalPriceCalc() {
       let total = 0
-      this.cart.forEach((product, i) => {
+      this.$store.state.cart.forEach((product, i) => {
         total += parseInt(this.selected[i]) * parseFloat(product.price);
         product.quantity = parseInt(this.selected[i])
       });
