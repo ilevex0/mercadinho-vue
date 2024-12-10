@@ -6,6 +6,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 import { store } from './store';
+import VMask from 'v-mask';
 
 
 // Import Bootstrap and BootstrapVue CSS files (order is important)
@@ -17,6 +18,7 @@ Vue.use(VueSweetalert2);
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
+Vue.use(VMask);
 Vue.config.productionTip = false
 
 new Vue({

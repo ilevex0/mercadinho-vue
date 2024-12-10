@@ -1,29 +1,48 @@
 <template>
   <div class="PurchasingPage">
     <div class="items">
-      <h1 v-if="this.$store.state.buyNowCart.length <= 0" class="purchasing-items">Finish shopping ({{this.$store.state.cart.length}} items)</h1>
-      <h1 v-if="this.$store.state.buyNowCart.length > 0" class="purchasing-items">Finish shopping ({{this.$store.state.buyNowCart.length}} items)</h1>
+      <h1
+        v-if="this.$store.state.buyNowCart.length <= 0"
+        class="purchasing-items"
+      >
+        Finish shopping ({{ this.$store.state.cart.length }} items)
+      </h1>
+      <h1
+        v-if="this.$store.state.buyNowCart.length > 0"
+        class="purchasing-items"
+      >
+        Finish shopping ({{ this.$store.state.buyNowCart.length }} items)
+      </h1>
       <div class="all-items">
         <ul>
           <div v-if="this.$store.state.buyNowCart.length > 0">
-            <div v-for="(product, index) in this.$store.state.buyNowCart" :key="index">
+            <div
+              v-for="(product, index) in this.$store.state.buyNowCart"
+              :key="index"
+            >
               <li>
                 <p>{{ product.name }}</p>
-                <p>Quantity: {{ product.quantity }}, R$
-                  {{ (product.price * product.quantity).toFixed(2) }}</p>
-
+                <p>
+                  Quantity: {{ product.quantity }}, R$
+                  {{ (product.price * product.quantity).toFixed(2) }}
+                </p>
               </li>
-              <hr>
+              <hr />
             </div>
           </div>
           <div v-else>
-            <div v-for="(product, index) in this.$store.state.cart" :key="index">
+            <div
+              v-for="(product, index) in this.$store.state.cart"
+              :key="index"
+            >
               <li>
                 <p>{{ product.name }}</p>
-                <p>Quantity: {{ product.quantity }}, R$
-                  {{ (product.price * product.quantity).toFixed(2) }}</p>
-                </li>
-                <hr>
+                <p>
+                  Quantity: {{ product.quantity }}, R$
+                  {{ (product.price * product.quantity).toFixed(2) }}
+                </p>
+              </li>
+              <hr />
             </div>
           </div>
         </ul>
@@ -31,7 +50,7 @@
     </div>
     <!-- Método de Pagamento -->
     <h2>Total Price: R$ {{ totalPrice.toFixed(2) }}</h2>
-    <hr>
+    <hr />
     <div class="personal-information">
       <h1>Your Personal Information</h1>
       <div>
@@ -42,9 +61,9 @@
           <option value="debit-card">Debit Card</option>
           <option value="paypal">PayPal</option>
         </select>
-        <span v-if="errors.paymentMethod" class="error">{{
-          errors.paymentMethod
-        }}</span>
+        <p v-if="errors.paymentMethod" class="error">
+          {{ errors.paymentMethod }}
+        </p>
       </div>
 
       <form @submit.prevent="handleSubmit">
@@ -58,35 +77,37 @@
             placeholder="Your full name"
             :class="{ 'is-invalid': errors.name }"
           />
-          <span v-if="errors.name" class="error">{{ errors.name }}</span>
+          <p v-if="errors.name" class="error">{{ errors.name }}</p>
         </div>
-        
+
         <!-- E-mail -->
         <div>
           <label for="email">E-mail:</label>
           <input
-          v-model="form.email"
-          type="email"
-          id="email"
-          placeholder="Your e-mail"
+            v-mask="'#*#@#*#.#*#'"
+            v-model="form.email"
+            type="email"
+            id="email"
+            placeholder="Your e-mail"
             :class="{ 'is-invalid': errors.email }"
           />
-          <span v-if="errors.email" class="error">{{ errors.email }}</span>
+          <p v-if="errors.email" class="error">{{ errors.email }}</p>
         </div>
 
         <!-- Telefone -->
         <div>
           <label for="phone">Phone number:</label>
           <input
+            v-mask="'(##) #####-####'"
             v-model="form.phone"
             type="text"
             id="phone"
             placeholder="Your Phone number"
             :class="{ 'is-invalid': errors.phone }"
           />
-          <span v-if="errors.phone" class="error">{{ errors.phone }}</span>
+          <p v-if="errors.phone" class="error">{{ errors.phone }}</p>
         </div>
-        
+
         <!-- Endereço -->
         <div>
           <label for="address">Address:</label>
@@ -97,7 +118,7 @@
             placeholder="Street, Number, Neighborhood"
             :class="{ 'is-invalid': errors.address }"
           />
-          <span v-if="errors.address" class="error">{{ errors.address }}</span>
+          <p v-if="errors.address" class="error">{{ errors.address }}</p>
         </div>
 
         <!-- Cidade -->
@@ -110,7 +131,7 @@
             placeholder="City"
             :class="{ 'is-invalid': errors.city }"
           />
-          <span v-if="errors.city" class="error">{{ errors.city }}</span>
+          <p v-if="errors.city" class="error">{{ errors.city }}</p>
         </div>
 
         <!-- CEP -->
@@ -123,9 +144,8 @@
             placeholder="ZIP"
             :class="{ 'is-invalid': errors.zip }"
           />
-          <span v-if="errors.zip" class="error">{{ errors.zip }}</span>
+          <p v-if="errors.zip" class="error">{{ errors.zip }}</p>
         </div>
-
 
         <!-- Botão de enviar -->
         <div>
@@ -313,7 +333,8 @@ div {
 .footer-margin {
   margin: 150px;
 }
-select, input {
+select,
+input {
   width: 18.5em;
 }
 .items {
