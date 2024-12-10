@@ -137,6 +137,7 @@
         <div>
           <label for="zip">ZIP:</label>
           <input
+            v-mask="'#####-###'"
             v-model="form.zip"
             type="text"
             id="zip"
