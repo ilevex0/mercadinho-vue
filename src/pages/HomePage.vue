@@ -122,7 +122,7 @@ section {
 }
 .product {
   width: 15%;
-  min-width: 100px;
+  min-width: 120px;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
   padding: 1em;
@@ -139,14 +139,16 @@ section {
 }
 @media (max-width: 843px) {
   section {
-    margin: 0px;
+    margin: 5px;
     padding: 8px;
   }
 }
 @media (max-width: 447px) {
-  section {
-    margin: 0px;
-    padding: 0px;
-  }
+  .products {
+  gap: 0.5rem;
+}
+.product {
+  padding: 0.5em;
+}
 }
 </style>

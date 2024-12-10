@@ -1,7 +1,8 @@
 <template>
   <div class="PurchasingPage">
     <div class="items">
-      <h1 class="purchasing-items">Items</h1>
+      <h1 v-if="this.$store.state.buyNowCart.length <= 0" class="purchasing-items">Finish shopping ({{this.$store.state.cart.length}} items)</h1>
+      <h1 v-if="this.$store.state.buyNowCart.length > 0" class="purchasing-items">Finish shopping ({{this.$store.state.buyNowCart.length}} items)</h1>
       <div class="all-items">
         <ul>
           <div v-if="this.$store.state.buyNowCart.length > 0">

@@ -166,7 +166,7 @@ section {
 }
 .product {
   width: 15%;
-  min-width: 100px;
+  min-width: 150px;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
   padding: 1em;
@@ -242,7 +242,8 @@ section {
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
 .btn-red {
-  width: 100%;
+  margin-top: 5px;
+  width: 65%;
   background-color: #ff0000; /* Cor vermelha de fundo */
   color: white; /* Cor do texto */
   padding: 10px; /* Espaçamento interno (padding) */
@@ -265,7 +266,7 @@ section {
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
 .btn-red-image {
-  width: clamp(1rem, 2vw, 2rem);
+  width: clamp(1.5rem, 2vw, 2rem);
 }
 .btn-green {
   width: 15vw;
@@ -311,5 +312,12 @@ section {
     margin: 1rem 0;
     padding: 0px;
   }
+  .products {
+  gap: 0.5rem;
+}
+.product {
+  width: 33%;
+  padding: 0.5em;
+}
 }
 </style>
