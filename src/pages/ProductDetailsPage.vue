@@ -1,27 +1,82 @@
 <template>
   <div class="ProductDetailsPage">
-    <div class="product-detail" v-if="hasProduct">
-      <div class="img-div">
-        <img
-          :src="require(`@/assets/products_images/${seeproduct[0].image}.png`)"
-          :alt="seeproduct[0].imageAlt"
-          class="product-image"
-        />
-      </div>
-      <div class="product-description">
-        <h1>{{ seeproduct[0].name }}</h1>
-        <div class="rating">
-          <b-form-rating
-            variant="warning"
-            v-model="ratingValue"
-            readonly
-            precision="2"
-          ></b-form-rating>
-          <span>(283)</span>
+    <section class="ProductDetails">
+      <div class="product-detail" v-if="hasProduct">
+        <div class="img-div">
+          <img
+            :src="
+              require(`@/assets/products_images/${seeproduct[0].image}.png`)
+            "
+            :alt="seeproduct[0].imageAlt"
+            class="product-image"
+          />
         </div>
-        <div v-if="!showButtonsMobile">
+        <div class="product-description">
+          <h1>{{ seeproduct[0].name }}</h1>
+          <div class="rating">
+            <b-form-rating
+              variant="warning"
+              v-model="ratingValue"
+              readonly
+              precision="2"
+            ></b-form-rating>
+            <span>(283)</span>
+          </div>
+          <div v-if="!showButtonsMobile">
+            <hr />
+            <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+            <div>
+              <label>
+                Quantity:
+                <b-form-select
+                  v-model="selected"
+                  :options="options"
+                  size="sm"
+                  class="mt-3"
+                ></b-form-select>
+              </label>
+            </div>
+            <div class="btn-mobile-container">
+              <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
+                Buy Now!
+              </b-button>
+              <b-button
+                class="btn-blue"
+                @click="addProductInCart(seeproduct[0])"
+              >
+                Add to cart!
+              </b-button>
+            </div>
+          </div>
           <hr />
+          <h3>Choose one</h3>
+          <p class="product-description-text">Color: <b>Primary</b></p>
+          <h3>About this product</h3>
+
+          <hr />
+          <ul class="product-description-text">
+            <li>{{ seeproduct[0].description }}</li>
+            <li>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
+              molestias sed ipsum fugiat consequuntur veniam nam quia rerum
+              porro debitis? Dolore quasi veniam doloremque vel provident
+              eveniet harum odit dolorum! Id porro nobis asperiores quaerat a
+              commodi ullam officiis reprehenderit, voluptatem nemo illo?
+              Explicabo molestias sed, magnam vero praesentium quaerat iure
+              iusto voluptas aperiam possimus inventore adipisci blanditiis
+              incidunt veniam.
+            </li>
+            <li>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
+              expedita, quibusdam ipsa quaerat, distinctio neque odio eligendi
+              odit eaque magni nihil itaque ea dolorem? Non dolore vero dolorem
+              optio veniam!
+            </li>
+          </ul>
+        </div>
+        <div v-if="showButtonsMobile">
           <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+          <p><b>in Stock.</b></p>
           <div>
             <label>
               Quantity:
@@ -33,85 +88,58 @@
               ></b-form-select>
             </label>
           </div>
-          <div class="btn-mobile-container">
-          <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
-            Buy Now!
-          </b-button>
-          <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
-            Add to cart!
-          </b-button>
-        </div>
-        </div>
-        <hr />
-        <h3>Choose one</h3>
-        <p class="product-description-text">Color: <b>Primary</b></p>
-        <h3>About this product</h3>
-
-        <hr />
-        <ul class="product-description-text">
-          <li>{{ seeproduct[0].description }}</li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi
-            molestias sed ipsum fugiat consequuntur veniam nam quia rerum porro
-            debitis? Dolore quasi veniam doloremque vel provident eveniet harum
-            odit dolorum! Id porro nobis asperiores quaerat a commodi ullam
-            officiis reprehenderit, voluptatem nemo illo? Explicabo molestias
-            sed, magnam vero praesentium quaerat iure iusto voluptas aperiam
-            possimus inventore adipisci blanditiis incidunt veniam.
-          </li>
-          <li>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
-            expedita, quibusdam ipsa quaerat, distinctio neque odio eligendi
-            odit eaque magni nihil itaque ea dolorem? Non dolore vero dolorem
-            optio veniam!
-          </li>
-        </ul>
-      </div>
-      <div v-if="showButtonsMobile">
-        <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
-        <p><b>in Stock.</b></p>
-        <div>
-          <label>
-            Quantity:
-            <b-form-select
-              v-model="selected"
-              :options="options"
-              size="sm"
-              class="mt-3"
-            ></b-form-select>
-          </label>
-        </div>
-        <div>
-          <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
-            Buy Now!
-          </b-button>
-          <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
-            Add to cart!
-          </b-button>
-        </div>
-        <hr />
-        <div>
-          <b-form-checkbox
-            id="checkbox-1"
-            v-model="statusIsGift"
-            name="checkbox-1"
-            value="true"
-            unchecked-value="false"
-          >
-            This order is for a gift.
-          </b-form-checkbox>
+          <div>
+            <b-button class="btn-blue" @click="callBuyNow(seeproduct[0])">
+              Buy Now!
+            </b-button>
+            <b-button class="btn-blue" @click="addProductInCart(seeproduct[0])">
+              Add to cart!
+            </b-button>
+          </div>
+          <hr />
+          <div>
+            <b-form-checkbox
+              id="checkbox-1"
+              v-model="statusIsGift"
+              name="checkbox-1"
+              value="true"
+              unchecked-value="false"
+            >
+              This order is for a gift.
+            </b-form-checkbox>
+          </div>
         </div>
       </div>
-      <div class="margin-for-footer"></div>
-    </div>
+    </section>
+    <section v-if="!failedToFetch" class="recommended-for-you">
+      <h2 class="products-category">Recommended for you</h2>
+      <div class="products">
+        <div
+          class="product"
+          v-for="(product, index) in filteredProducts"
+          :key="index"
+        >
+          <ProductCard
+            :product="product"
+            :index="index"
+            :seeProduct="seeProduct"
+          />
+        </div>
+      </div>
+    </section>
+    <div class="margin-for-footer"></div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import ProductCard from "@/components/ProductCard.vue";
 
 export default {
   name: "ProductDetailsPage",
+  components: {
+    ProductCard,
+  },
   props: {
     APIRequest: {
       type: String,
@@ -135,6 +163,7 @@ export default {
       showButtonsMobile: window.innerWidth > 759,
       hasProduct: false,
       seeproduct: [],
+      filteredProducts: [],
       ratingValue: 4.555,
       selected: null,
       options: [
@@ -145,9 +174,13 @@ export default {
         { value: 5, text: "5 Units" },
       ],
       statusIsGift: false,
+      failedToFetch: false,
     };
   },
   mounted() {
+    setTimeout(() => {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }, 100);
     window.addEventListener("resize", this.updateButtonVisibility);
   },
   beforeDestroy() {
@@ -156,25 +189,39 @@ export default {
   created() {
     let productimage = this.$route.params.productimage;
 
-    axios.get(this.APIRequest).then((response) => {
-      const produtos = response.data;
-      this.produto = produtos.find((produto) => produto.image === productimage);
+    axios
+      .get(this.APIRequest)
+      .then((response) => {
+        const produtos = response.data;
+        this.produto = produtos.find(
+          (produto) => produto.image === productimage
+        );
 
-      if (this.produto) {
-        this.seeproduct = [];
-        this.seeproduct.push(this.produto);
-        this.hasProduct = true;
-      } else {
-        this.$swal.fire({
-          title: "Error",
-          text: "Product is not found :(",
-          icon: "error",
-        });
-        this.$router.push("/");
-      }
-    });
+        this.filteredProducts = produtos.filter(
+          (product) => product.category === "technology"
+        );
+
+        if (this.produto) {
+          this.seeproduct = [];
+          this.seeproduct.push(this.produto);
+          this.hasProduct = true;
+        } else {
+          this.$swal.fire({
+            title: "Error",
+            text: "Product is not found :(",
+            icon: "error",
+          });
+          this.$router.push("/");
+        }
+      })
+      .catch(() => {
+        this.failedToFetch = true;
+      });
   },
   methods: {
+    seeProduct(product) {
+      this.$emit("seeProduct", product);
+    },
     updateButtonVisibility() {
       this.showButtonsMobile = window.innerWidth > 759;
     },
@@ -219,9 +266,9 @@ export default {
   white-space: nowrap;
 }
 .margin-for-footer {
-  margin-bottom: 800px;
+  margin-bottom: 50px;
 }
-.ProductDetailsPage {
+.ProductDetails {
   display: flex;
   justify-content: center;
 
@@ -288,9 +335,32 @@ label {
   font-size: clamp(1rem, 1.2vw, 1.2rem);
   margin-bottom: 10px;
 }
+.products {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  align-content: end;
+  justify-content: space-between;
+  overflow-x: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+}
+.product {
+  width: 15%;
+  min-width: 120px;
+  border: 1px solid rgb(235, 235, 235);
+  border-radius: 8px;
+  padding: 1em;
+  align-content: center;
+  justify-content: center;
+}
+.recommended-for-you {
+    margin: 0px 50px 0px 50px;
+  }
 @media (max-width: 759px) {
   .ProductDetailsPage {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     margin: 30px 0%;
   }
@@ -322,6 +392,11 @@ label {
   }
   .price {
     margin: 0px;
+  }
+}
+@media (max-width: 762px ) {
+  .recommended-for-you {
+    margin: 0px 5px 0px 5px;
   }
 }
 </style>

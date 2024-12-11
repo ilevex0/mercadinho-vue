@@ -8,7 +8,15 @@
 
 <script>
 export default {
-
+  name: 'PurchasePage',
+  data() {
+    return {}
+  },
+  mounted() {
+    setTimeout(() => {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }, 100);
+  },
 }
 </script>
 
