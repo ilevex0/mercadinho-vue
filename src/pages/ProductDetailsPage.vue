@@ -355,7 +355,7 @@ label {
   justify-content: center;
 }
 .recommended-for-you {
-    margin: 0px 50px 0px 50px;
+  margin: 30px 10%;
   }
 @media (max-width: 759px) {
   .ProductDetailsPage {
@@ -394,9 +394,14 @@ label {
     margin: 0px;
   }
 }
-@media (max-width: 762px ) {
+@media (max-width: 884px) {
   .recommended-for-you {
-    margin: 0px 5px 0px 5px;
+  margin: 30px 5%;
+  }
+}
+@media (max-width: 320px) {
+  .recommended-for-you {
+  margin: 30px 0%;
   }
 }
 </style>
