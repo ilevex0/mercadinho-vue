@@ -221,6 +221,7 @@ export default {
   methods: {
     seeProduct(product) {
       this.$emit("seeProduct", product);
+      window.scrollTo(0, 0);
     },
     updateButtonVisibility() {
       this.showButtonsMobile = window.innerWidth > 759;

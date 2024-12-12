@@ -60,7 +60,6 @@ export default {
         name: "productdetailspage",
         params: { productimage: product.image },
       });
-      this.$router.go()
     },
     addProduct(product) {
       const swalWithBootstrapButtons = this.$swal.mixin({
