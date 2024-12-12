@@ -222,6 +222,9 @@ export default {
     seeProduct(product) {
       this.$emit("seeProduct", product);
       window.scrollTo(0, 0);
+
+      this.seeproduct = [];
+      this.seeproduct.push(product);
     },
     updateButtonVisibility() {
       this.showButtonsMobile = window.innerWidth > 759;
