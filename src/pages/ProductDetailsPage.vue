@@ -220,6 +220,11 @@ export default {
   },
   methods: {
     seeProduct(product) {
+
+      if(this.$route.path === `/productdetailspage/${product.image}`) {
+        window.scrollTo(0, 0);
+        return
+      }
       this.$emit("seeProduct", product);
       window.scrollTo(0, 0);
 

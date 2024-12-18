@@ -5,7 +5,7 @@
       Sorry, we couldn't load the products. Please try again later.
     </p>
     <section v-if="!failedToFetch">
-      <h2 class="products-category">Best Sellers in Technology</h2>
+      <h2 class="products-category" id="technology">Best Sellers in Technology</h2>
       <div class="products">
         <div
           class="product"
@@ -17,7 +17,7 @@
       </div>
     </section>
     <section v-if="!failedToFetch">
-      <h2 class="products-category">Best Sellers in Kitchen</h2>
+      <h2 class="products-category" id="kitchen">Best Sellers in Kitchen</h2>
       <div class="products">
         <div class="products">
           <div
