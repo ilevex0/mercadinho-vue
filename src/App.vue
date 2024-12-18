@@ -256,6 +256,7 @@ export default {
 .div-nav {
   background-color: #1a1a1a;
   font-size: 1.5m;
+  padding-top: 10px;
   /*
   position: fixed;
   top: 0;

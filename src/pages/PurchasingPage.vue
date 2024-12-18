@@ -280,7 +280,9 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos já existentes e novos estilos */
+.PurchasingPage {
+  margin-top: 15px;
+}
 
 form div {
   margin-bottom: 15px;
