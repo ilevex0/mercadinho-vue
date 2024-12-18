@@ -3,25 +3,36 @@
     <div class="div-nav">
       <nav class="nav">
         <section class="nav-first-section">
-          <router-link to="/"
-            ><img
-              :src="require('@/assets/nav_logo.png')"
-              alt="mercadinho logo image"
-              class="nav-logo-image"
-          /></router-link>
+          <div class="nav-first-section-Logo-ZIP">
+            <router-link to="/"
+              ><img
+                :src="require('@/assets/nav_logo.png')"
+                alt="mercadinho logo image"
+                class="nav-logo-image"
+            /></router-link>
+            <b-button class="nav-location_on">
+              <p class="nav-location-title"><img :src="require('@/assets/location_on.png')" alt="location_on" class="nav-location_on-image">Send to</p>
+              <p>São Paulo 01234-567</p>
+            </b-button>
+          </div>
           <div>
-            <router-link v-if="this.$store.state.cart.length <= 0" class="nav-cart-button" to="/my-cart"
+            <router-link
+              v-if="this.$store.state.cart.length <= 0"
+              class="nav-cart-button"
+              to="/my-cart"
               ><img
                 class="nav-button cart-image"
                 src="./assets/shopping_bag.svg"
                 alt="My Shopping Cart"
-            />+0</router-link>
+              />+0</router-link
+            >
             <router-link v-else class="nav-button-hasInCart" to="/my-cart"
               ><img
                 class="cart-image"
                 src="./assets/shopping_bag.svg"
                 alt="My Shopping Cart"
-            />+{{ this.$store.state.cart.length }}</router-link>
+              />+{{ this.$store.state.cart.length }}</router-link
+            >
           </div>
         </section>
         <section class="nav-second-section">
@@ -33,14 +44,12 @@
             <button @click="scrollToKitchen" class="hide-in-mobile">
               <li class="nav-button">Kitchen</li>
             </button>
-            <button @click="scrollToTechnology" to="/"
-              ><li class="nav-button">For you</li></button
-            >
-            <button @click="scrollToTechnology" to="/"
-              ><li class="nav-button">
-                Best Sellers
-              </li></button
-            >
+            <button @click="scrollToTechnology" to="/">
+              <li class="nav-button">For you</li>
+            </button>
+            <button @click="scrollToTechnology" to="/">
+              <li class="nav-button">Best Sellers</li>
+            </button>
           </div>
           <div class="nav-second-section-info">
             <router-link to="/"><li class="nav-button">Home</li></router-link>
@@ -277,6 +286,16 @@ export default {
   justify-content: space-between;
   padding: 0px 50px;
 }
+.nav-location-title {
+  font-size: 28px;
+}
+.nav-location_on-image {
+  max-width: 35px;
+}
+.nav-first-section-Logo-ZIP {
+  display: flex;
+  gap: 50px;
+}
 .nav-second-section {
   display: flex;
   gap: 15px;
@@ -364,6 +383,11 @@ a {
   .nav-second-section {
     padding-left: 20px;
     padding-right: 20px;
+  }
+}
+@media (max-width: 471px) {
+  .nav-location_on {
+    display: none;
   }
 }
 @media (max-width: 374px) {
