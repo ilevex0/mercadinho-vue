@@ -413,5 +413,8 @@ label {
   .recommended-for-you {
   margin: 30px 0%;
   }
+  .rating {
+    width: 250px;
+  }
 }
 </style>
