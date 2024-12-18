@@ -27,16 +27,16 @@
         <section class="nav-second-section">
           <div class="nav-second-section-categories">
             <router-link to="/"><li class="nav-button">All</li></router-link>
-            <button @click="scrollToTechnology">
+            <button @click="scrollToTechnology" class="hide-in-mobile">
               <li class="nav-button">Technology</li>
             </button>
-            <button @click="scrollToKitchen">
+            <button @click="scrollToKitchen" class="hide-in-mobile">
               <li class="nav-button">Kitchen</li>
             </button>
-            <button @click="scrollToTechnology" class="hide-in-mobile" to="/"
+            <button @click="scrollToTechnology" to="/"
               ><li class="nav-button">For you</li></button
             >
-            <button @click="scrollToTechnology" class="hide-in-mobile" to="/"
+            <button @click="scrollToTechnology" to="/"
               ><li class="nav-button">
                 Best Sellers
               </li></button
