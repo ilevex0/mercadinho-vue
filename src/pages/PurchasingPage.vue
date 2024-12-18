@@ -74,6 +74,7 @@
             v-model="form.name"
             type="text"
             id="name"
+            required
             placeholder="Your full name"
             :class="{ 'is-invalid': errors.name }"
           />
@@ -86,6 +87,7 @@
           <input
             v-model="form.email"
             type="email"
+            required
             id="email"
             placeholder="Your e-mail"
             :class="{ 'is-invalid': errors.email }"
@@ -97,8 +99,9 @@
         <div>
           <label for="phone">Phone number:</label>
           <input
-            v-mask="'(##) #####-####'"
+            v-mask="form.phone.length <= 14 ? '(##) ####-####' : '(##) #####-####'"
             v-model="form.phone"
+            required
             type="text"
             id="phone"
             placeholder="Your Phone number"
@@ -112,7 +115,8 @@
           <label for="address">Address:</label>
           <input
             v-model="form.address"
-            type="text"
+            type="text" 
+            required
             id="address"
             placeholder="Street, Number, Neighborhood"
             :class="{ 'is-invalid': errors.address }"
@@ -126,6 +130,7 @@
           <input
             v-model="form.city"
             type="text"
+            required
             id="city"
             placeholder="City"
             :class="{ 'is-invalid': errors.city }"
@@ -140,6 +145,7 @@
             v-mask="'#####-###'"
             v-model="form.zip"
             type="text"
+            required
             id="zip"
             placeholder="ZIP"
             :class="{ 'is-invalid': errors.zip }"
