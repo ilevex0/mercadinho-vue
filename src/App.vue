@@ -260,7 +260,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(248, 248, 248);
+  background-color: rgb(241, 241, 241);
 }
 .div-nav {
   background-color: #1a1a1a;
@@ -287,7 +287,8 @@ export default {
   padding: 0px 50px;
 }
 .nav-location-title {
-  font-size: 28px;
+  font-size: 20px;
+  color: #c0c0c0;
 }
 .nav-location_on-image {
   max-width: 35px;

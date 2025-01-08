@@ -1,37 +1,42 @@
 <template>
   <div class="CartPage">
-    <h1>My Cart ({{ this.$store.state.cart.length }})</h1>
-    <hr />
     <div class="cart-empty" v-if="this.$store.state.cart.length <= 0">
       <p>Your cart is empty right now :c</p>
     </div>
-    <div class="purchase-info" v-if="this.$store.state.cart.length != 0">
-      <h2>Total price is</h2>
-      <p class="product-price">R${{ totalPriceCalc.toFixed(2) }}</p>
-      <b-button class="btn-green" @click="purchase()"> Purchase </b-button>
-    </div>
-    <section>
-      <div class="products">
-        <div class="product" v-for="(product, index) in this.$store.state.cart" :key="index">
-          <img
-            :src="require(`@/assets/products_images/${product.image}.png`)"
-            :alt="product.imageAlt"
-            class="product-image"
-            @click="seeProduct(product)"
-          />
-          <div>
-            <p class="product-title" @click="seeProduct(product)">
-              {{ product.name }}
-            </p>
-            <p class="product-description" @click="seeProduct(product)">
-              {{ product.description }}
-            </p>
-
-            <div class="button-and-price">
-              <p class="product-price">
-                R$ {{ (selected[index] * product.price).toFixed(2) }}
+    <div class="cart-components">
+      <section class="my-cart" v-if="this.$store.state.cart.length != 0">
+        <div
+          v-if="this.$store.state.cart.length > 0"
+          class="my-cart-count-items"
+        >
+          <h1 style="text-align: start; margin-bottom: 15px">
+            My Cart ({{ this.$store.state.cart.length }})
+          </h1>
+          <hr />
+        </div>
+        <div class="products" style="display: flex">
+          <div
+            class="product"
+            v-for="(product, index) in this.$store.state.cart"
+            :key="index"
+          >
+            <img
+              :src="require(`@/assets/products_images/${product.image}.png`)"
+              :alt="product.imageAlt"
+              class="product-image"
+              @click="seeProduct(product)"
+            />
+            <div class="product-info">
+              <p class="product-title" @click="seeProduct(product)">
+                {{ product.name }}
+              </p>
+              <p class="product-description" @click="seeProduct(product)">
+                {{ product.description }}
               </p>
               <div class="cart_product_button">
+                <p class="product-price-mobile">
+                R$ {{ (selected[index] * product.price).toFixed(2) }}
+              </p>
                 <div>
                   <p>
                     Quantity:
@@ -43,18 +48,55 @@
                     ></b-form-select>
                   </p>
                 </div>
-                <b-button class="btn-red" @click="removeFromCart(product)"
+                <b-button class="btn" @click="removeFromCart(product)"
                   ><img
-                    class="btn-red-image"
+                    class="btn-image"
                     src="../assets/lixeira.svg"
                     alt="Delete"
                 /></b-button>
               </div>
             </div>
+
+            <div class="p-price">
+              <p class="product-price">
+                R$ {{ (selected[index] * product.price).toFixed(2) }}
+              </p>
+              <p class="product-price-text">
+                à vista no cartão de crédito ou em até 10x de R$
+                {{ (selected[index] * product.price).toFixed(2) }} sem juros
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+        <p class="product-price-end">
+          SubTotal({{ this.$store.state.cart.length }}
+          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) R${{
+            totalPriceCalc.toFixed(2)
+          }}
+        </p>
+      </section>
+      <section>
+        <div class="purchase-info" v-if="this.$store.state.cart.length != 0">
+          <p class="product-price">
+            SubTotal({{ this.$store.state.cart.length }}
+            {{ this.$store.state.cart.length > 1 ? "products" : "product" }})
+            R${{ totalPriceCalc.toFixed(2) }}
+          </p>
+          <div>
+            <b-form-checkbox
+              id="checkbox-1"
+              v-model="statusIsGift"
+              name="checkbox-1"
+              value="true"
+              unchecked-value="false"
+            >
+              This order is for a gift.
+            </b-form-checkbox>
+          </div>
+          <b-button class="btn-green" @click="purchase()"> Purchase </b-button>
+        </div>
+      </section>
+    </div>
     <div class="margin-footer" v-if="this.$store.state.cart.length <= 0"></div>
     <div class="margin-footer-if-cart" v-else></div>
   </div>
@@ -68,20 +110,22 @@ export default {
       totalPrice: 0,
       selected: [],
       options: [],
+      statusIsGift: false,
     };
   },
   created() {
     this.$store.state.cart.forEach((product) => {
-      this.selected.push(product.quantity)
+      this.selected.push(product.quantity);
     });
     this.$store.state.cart.forEach(() =>
-    this.options.push([
+      this.options.push([
         { value: 1, text: "1 Unit" },
         { value: 2, text: "2 Units" },
         { value: 3, text: "3 Units" },
         { value: 4, text: "4 Units" },
-        { value: 5, text: "5 Units" },]),
-  );
+        { value: 5, text: "5 Units" },
+      ])
+    );
   },
   props: {
     buyNowClear: {
@@ -119,13 +163,13 @@ export default {
   },
   computed: {
     totalPriceCalc() {
-      let total = 0
+      let total = 0;
       this.$store.state.cart.forEach((product, i) => {
         total += parseInt(this.selected[i]) * parseFloat(product.price);
-        product.quantity = parseInt(this.selected[i])
+        product.quantity = parseInt(this.selected[i]);
       });
       return total;
-    }
+    },
   },
 };
 </script>
@@ -133,6 +177,18 @@ export default {
 <style scoped>
 * {
   margin: 0px;
+}
+.cart-components {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 3em;
+  margin: 30px 30px;
+}
+.my-cart {
+  width: 70%;
+  min-width: 550px;
+  background-color: white;
 }
 .cart-empty {
   display: flex;
@@ -144,10 +200,8 @@ export default {
   white-space: nowrap;
 }
 .purchase-info {
-  margin-top: 20px;
-}
-section {
-  margin: 1rem 3rem 1rem 3rem;
+  padding: 20px;
+  background-color: white;
 }
 .products-category {
   margin: 1.5rem;
@@ -155,26 +209,27 @@ section {
   text-align: start;
 }
 .products {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  align-content: flex-start;
-  justify-content: center;
-  overflow-x: auto;
+  /*overflow-x: auto;*/
   background-color: rgb(255, 255, 255);
   border-radius: 8px;
+  padding: 30px;
+  padding-top: 0px;
 }
 .product {
-  width: 15%;
-  min-width: 150px;
+  width: 100%;
+  display: flex;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
   padding: 1em;
   align-content: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 .product-image {
-  width: 100%;
+  max-width: 150px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -202,49 +257,37 @@ section {
   font-size: clamp(1rem, 1.2vw, 2rem);
   white-space: nowrap;
 }
-.button-and-price {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  align-items: center;
-  justify-items: flex-end;
-  flex-wrap: wrap;
-  gap: 0px 1rem;
+.product-price-end {
+  font-weight: bold;
+  cursor: auto;
+  font-size: clamp(1rem, 1.2vw, 2rem);
+  white-space: wrap;
+  text-align: end;
+  padding-right: 30px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+}
+.product-price-text {
+  text-align: end;
+}
+.p-price {
+  max-width: 150px;
+}
+.product-info {
+  max-width: 350px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
 }
-
-.btn-blue {
-  width: 100%;
-  background-color: #007bff; /* Cor azul de fundo */
-  color: white; /* Cor do texto */
-  font-size: clamp(0.7rem, 1.2vw, 1.2rem); /* Tamanho da fonte */
-  padding: 10px; /* Espaçamento interno (padding) */
-  border: none; /* Remove a borda padrão */
-  border-radius: 8px; /* Bordas arredondadas */
-  cursor: pointer; /* Aparece a mãozinha ao passar o mouse */
-  transition: all 0.3s ease; /* Transição suave para os efeitos */
-  text-align: center; /* Centraliza o texto */
-  text-decoration: none; /* Remove o sublinhado caso seja link */
-  white-space: nowrap;
-}
-
-.btn-blue:hover {
-  background-color: #0056b3; /* Cor de fundo azul mais escura no hover */
-  transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
-}
-
-.btn-blue:active {
-  background-color: #004085; /* Cor ainda mais escura no clique */
-  transform: translateY(2px); /* Efeito de pressionar o botão */
-}
-.btn-red {
+.btn {
   margin-top: 5px;
-  width: 65%;
-  background-color: #ff0000; /* Cor vermelha de fundo */
+  max-width: 150px;
+  min-width: 75px;
+  background-color: #919191; /* Cor vermelha de fundo */
   color: white; /* Cor do texto */
   padding: 10px; /* Espaçamento interno (padding) */
   border: none; /* Remove a borda padrão */
@@ -256,16 +299,16 @@ section {
   white-space: nowrap;
 }
 
-.btn-red:hover {
-  background-color: #cc0000; /* Cor de fundo vermelha mais escura no hover */
+.btn:hover {
+  background-color: #f31010; /* Cor de fundo vermelha mais escura no hover */
   transform: translateY(-2px); /* Pequeno efeito de movimento para cima */
 }
 
-.btn-red:active {
+.btn:active {
   background-color: #990000; /* Cor ainda mais escura no clique */
   transform: translateY(2px); /* Efeito de pressionar o botão */
 }
-.btn-red-image {
+.btn-image {
   width: clamp(1.5rem, 2vw, 2rem);
 }
 .btn-green {
@@ -300,24 +343,65 @@ section {
 .margin-footer-if-cart {
   margin-bottom: 300px;
 }
-
-@media (max-width: 843px) {
-  section {
-    margin: 1rem 0;
-    padding: 8px;
+.my-cart-count-items {
+  background-color: white;
+  padding: 30px;
+}
+.product-price-mobile {
+  display: none;
+  font-weight: bold;
+  cursor: auto;
+  font-size: clamp(1rem, 1.2vw, 2rem);
+  white-space: nowrap;
+  margin-top: 10px;
+}
+@media (max-width: 1080px) {
+  .cart-components {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    gap: 3em;
+  }
+  .my-cart {
+    width: 100%;
+  }
+  .purchase-info {
+    max-width: 300px;
+    justify-self: center;
   }
 }
-@media (max-width: 447px) {
-  section {
-    margin: 1rem 0;
-    padding: 0px;
+@media (max-width: 618px) {
+  .my-cart {
+    width: 100%;
+    min-width: 200px;
+  }
+  .product-image {
+    min-width: 25px;
+    object-fit: contain;
+  }
+  .cart-components {
+    margin: 30px 10px;
+  }
+}
+@media (max-width: 570px) {
+  .p-price {
+    display: none;
+  }
+  .product-price-mobile {
+    display: block;
+  }
+}
+@media (max-width: 407px) {
+  .product-image {
+    max-width: 75px;
+  }
+  .my-cart-count-items {
+    background-color: white;
+    padding: 30px 10px;
   }
   .products {
-  gap: 0.5rem;
-}
-.product {
-  width: 33%;
-  padding: 0.5em;
-}
+    padding: 8px;
+    padding-bottom: 30px;
+    padding-top: 0px;
+  }
 }
 </style>
