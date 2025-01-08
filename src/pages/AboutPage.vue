@@ -37,7 +37,7 @@
                   >
                 </p>
                 <p>
-                  The images are here just for illustrarion pourpose!
+                  The images are here just for illustration purpose!
                 </p></b-card-text
               >
             </b-card-body>

@@ -15,6 +15,11 @@
               <p>São Paulo 01234-567</p>
             </b-button>
           </div>
+          <input class="nav-search" type="search" placeholder="Search in this Website">
+          <div class="user-account">
+            <p>Hello User,</p>
+            <p class="user-account-button">See My Account</p>
+          </div>
           <div>
             <router-link
               v-if="this.$store.state.cart.length <= 0"
@@ -262,6 +267,19 @@ export default {
   color: #2c3e50;
   background-color: rgb(241, 241, 241);
 }
+.user-account {
+  color: rgb(228, 228, 228);
+  cursor: pointer;
+  white-space: nowrap;
+  text-align: justify;
+}
+.user-account-button {
+  color: white;
+  font-weight: 600;
+}
+.user-account, p {
+  margin: 0px;
+}
 .div-nav {
   background-color: #1a1a1a;
   font-size: 1.5m;
@@ -289,6 +307,9 @@ export default {
 .nav-location-title {
   font-size: 20px;
   color: #c0c0c0;
+}
+.nav-location_on {
+  white-space: nowrap;
 }
 .nav-location_on-image {
   max-width: 35px;
@@ -356,6 +377,7 @@ a {
   padding: 10px;
   border: solid 1px transparent;
   border-radius: 16px;
+  white-space: nowrap;
 }
 .nav-button-hasInCart {
   padding: 10px;
@@ -367,6 +389,33 @@ a {
   transition: all 0.2s ease-in;
   border: solid 1px rgb(199, 225, 255);
 }
+.nav-search {
+    border: 2px solid #242424;
+    border-radius: 20px;
+    padding: .7em 1em;
+    width: 40vw;
+    text-overflow: ellipsis;
+}
+.nav-search:focus {
+    border: 2px solid #ff7b00;
+    border-radius: 20px;
+    padding: .7em 1em;
+}
+
+.nav-search::placeholder {
+    font-size: 18px;
+    background: url("@/assets/magnifyingglass.png") no-repeat right center;
+}
+@media (max-width: 1200px) {
+  .nav-search {
+    width: 20vw;
+  }
+}
+@media (max-width: 870px) {
+  .nav-search {
+    display: none;
+  }
+}
 @media (max-width: 751px) {
   .nav-second-section-info {
     display: none;
@@ -374,6 +423,9 @@ a {
   .nav-second-section-categories {
     width: 100%;
     gap: 50px;
+  }
+  .nav-location_on {
+    display: none;
   }
 }
 @media (max-width: 592px) {
@@ -391,6 +443,11 @@ a {
     display: none;
   }
 }
+@media (max-width: 409px) {
+  .nav-logo-image {
+    max-width: 100px;
+  }
+}
 @media (max-width: 374px) {
   .nav-first-section,
   .nav-second-section {
@@ -404,5 +461,9 @@ a {
     padding: 0px 30px;
     gap: 10px;
   }
+  .nav-logo-image {
+    max-width: 0px; /* leave animation */
+  }
 }
+
 </style>

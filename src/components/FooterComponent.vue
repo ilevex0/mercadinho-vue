@@ -27,7 +27,7 @@
     </section>
     <section class="author-section">
       <div class="author-div">
-        <p>&copy; Copyright 2024 - All rights reserved</p>
+        <p>&copy; Copyright 2025 - All rights reserved</p>
         <p>|</p>
         <p>
           This website was created by
