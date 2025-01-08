@@ -35,7 +35,7 @@
               </p>
               <div class="cart_product_button">
                 <p class="product-price-mobile">
-                R$ {{ (selected[index] * product.price).toFixed(2) }}
+                 {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
               </p>
                 <div>
                   <p>
@@ -59,19 +59,18 @@
 
             <div class="p-price">
               <p class="product-price">
-                R$ {{ (selected[index] * product.price).toFixed(2) }}
+                {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
               </p>
               <p class="product-price-text">
-                à vista no cartão de crédito ou em até 10x de R$
-                {{ (selected[index] * product.price).toFixed(2) }} sem juros
+                à vista no cartão de crédito ou em até 10x de {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} sem juros
               </p>
             </div>
           </div>
         </div>
         <p class="product-price-end">
           SubTotal({{ this.$store.state.cart.length }}
-          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) R${{
-            totalPriceCalc.toFixed(2)
+          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) {{
+            totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
           }}
         </p>
       </section>
@@ -80,7 +79,7 @@
           <p class="product-price">
             SubTotal({{ this.$store.state.cart.length }}
             {{ this.$store.state.cart.length > 1 ? "products" : "product" }})
-            R${{ totalPriceCalc.toFixed(2) }}
+            {{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
           </p>
           <div>
             <b-form-checkbox

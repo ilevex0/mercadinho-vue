@@ -16,7 +16,7 @@
         </p>
       </div>
 
-      <p class="product-price">R$ {{ product.price.toFixed(2) }}</p>
+      <p class="product-price"> {{ product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</p>
     </div>
   </div>
 </template>

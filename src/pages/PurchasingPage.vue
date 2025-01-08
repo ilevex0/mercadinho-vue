@@ -23,8 +23,8 @@
               <li>
                 <p>{{ product.name }}</p>
                 <p>
-                  Quantity: {{ product.quantity }}, R$
-                  {{ (product.price * product.quantity).toFixed(2) }}
+                  Quantity: {{ product.quantity }}, 
+                  {{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
                 </p>
               </li>
               <hr />
@@ -38,8 +38,8 @@
               <li>
                 <p>{{ product.name }}</p>
                 <p>
-                  Quantity: {{ product.quantity }}, R$
-                  {{ (product.price * product.quantity).toFixed(2) }}
+                  Quantity: {{ product.quantity }}, 
+                  {{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
                 </p>
               </li>
               <hr />
@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- Método de Pagamento -->
-    <h2>Total Price: R$ {{ totalPrice.toFixed(2) }}</h2>
+    <h2>Total Price:  {{ totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
     <hr />
     <div class="personal-information">
       <h1>Your Personal Information</h1>

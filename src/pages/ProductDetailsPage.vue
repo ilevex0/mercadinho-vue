@@ -24,7 +24,7 @@
           </div>
           <div v-if="!showButtonsMobile">
             <hr />
-            <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+            <h2 class="price">{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
             <div>
               <label>
                 Quantity:
@@ -75,7 +75,7 @@
           </ul>
         </div>
         <div v-if="showButtonsMobile">
-          <h2 class="price">R$ {{ totalPriceCalc.toFixed(2) }}</h2>
+          <h2 class="price">{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
           <p><b>in Stock.</b></p>
           <div>
             <label>
