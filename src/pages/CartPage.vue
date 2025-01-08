@@ -59,7 +59,7 @@
 
             <div class="p-price">
               <p class="product-price">
-                {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                <b>{{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
               </p>
               <p class="product-price-text">
                 à vista no cartão de crédito ou em até 10x de {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} sem juros
@@ -69,9 +69,9 @@
         </div>
         <p class="product-price-end">
           SubTotal({{ this.$store.state.cart.length }}
-          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) {{
+          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) <b>{{
             totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-          }}
+          }}</b>
         </p>
       </section>
       <section>
@@ -79,7 +79,7 @@
           <p class="product-price">
             SubTotal({{ this.$store.state.cart.length }}
             {{ this.$store.state.cart.length > 1 ? "products" : "product" }})
-            {{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+            <b>{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
           </p>
           <div>
             <b-form-checkbox

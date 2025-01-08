@@ -5,13 +5,13 @@
         v-if="this.$store.state.buyNowCart.length <= 0"
         class="purchasing-items"
       >
-        Finish shopping ({{ this.$store.state.cart.length }} items)
+        Finish shopping ({{ this.$store.state.cart.length }} {{this.$store.state.cart.length > 1 ? "items" : "item"}})
       </h1>
       <h1
         v-if="this.$store.state.buyNowCart.length > 0"
         class="purchasing-items"
       >
-        Finish shopping ({{ this.$store.state.buyNowCart.length }} items)
+        Finish shopping ({{ this.$store.state.buyNowCart.length }} item)
       </h1>
       <div class="all-items">
         <ul>
@@ -24,7 +24,7 @@
                 <p>{{ product.name }}</p>
                 <p>
                   Quantity: {{ product.quantity }}, 
-                  {{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                  <b>{{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
                 </p>
               </li>
               <hr />
@@ -39,7 +39,7 @@
                 <p>{{ product.name }}</p>
                 <p>
                   Quantity: {{ product.quantity }}, 
-                  {{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                  <b>{{ (product.price * product.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
                 </p>
               </li>
               <hr />
@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- Método de Pagamento -->
-    <h2>Total Price:  {{ totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
+    <h2>Total Price:  <b>{{ totalPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b></h2>
     <hr />
     <div class="personal-information">
       <h1>Your Personal Information</h1>
