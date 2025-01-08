@@ -443,12 +443,12 @@ a {
     display: none;
   }
 }
-@media (max-width: 409px) {
+@media (max-width: 425px) {
   .nav-logo-image {
     max-width: 100px;
   }
 }
-@media (max-width: 374px) {
+@media (max-width: 394px) {
   .nav-first-section,
   .nav-second-section {
     padding-left: 10px;
