@@ -24,7 +24,14 @@
           </div>
           <div v-if="!showButtonsMobile">
             <hr />
-            <h2 class="price">{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
+            <h2 class="price">
+              {{
+                totalPriceCalc.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                })
+              }}
+            </h2>
             <div>
               <label>
                 Quantity:
@@ -75,7 +82,14 @@
           </ul>
         </div>
         <div v-if="showButtonsMobile">
-          <h2 class="price">{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</h2>
+          <h2 class="price">
+            {{
+              totalPriceCalc.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })
+            }}
+          </h2>
           <p><b>in Stock.</b></p>
           <div>
             <label>
@@ -177,6 +191,45 @@ export default {
       failedToFetch: false,
     };
   },
+  beforeRouteUpdate(to, from, next) {
+    let productimage = to.params.productimage;
+
+    axios
+      .get(this.APIRequest)
+      .then((response) => {
+        const produtos = response.data;
+        this.produto = produtos.find(
+          (produto) => produto.image === productimage
+        );
+
+        this.filteredProducts = produtos.filter(
+          (product) => product.category === "technology"
+        );
+
+        if (this.produto) {
+          this.seeproduct = [];
+          this.seeproduct.push(this.produto);
+          this.hasProduct = true;
+        } else {
+          this.$swal.fire({
+            title: "Error",
+            text: "Product is not found :(",
+            icon: "error",
+          });
+          this.$router.push("/");
+        }
+      })
+      .catch(() => {
+        this.failedToFetch = true;
+      });
+
+    setTimeout(() => {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+    }, 100);
+    window.addEventListener("resize", this.updateButtonVisibility);
+    next();
+  },
+
   mounted() {
     setTimeout(() => {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -220,10 +273,9 @@ export default {
   },
   methods: {
     seeProduct(product) {
-
-      if(this.$route.path === `/productdetailspage/${product.image}`) {
+      if (this.$route.path === `/productdetailspage/${product.image}`) {
         window.scrollTo(0, 0);
-        return
+        return;
       }
       this.$emit("seeProduct", product);
       window.scrollTo(0, 0);
@@ -366,7 +418,7 @@ label {
 }
 .recommended-for-you {
   margin: 30px 10%;
-  }
+}
 @media (max-width: 759px) {
   .ProductDetailsPage {
     display: flex;
@@ -406,12 +458,12 @@ label {
 }
 @media (max-width: 884px) {
   .recommended-for-you {
-  margin: 30px 5%;
+    margin: 30px 5%;
   }
 }
 @media (max-width: 320px) {
   .recommended-for-you {
-  margin: 30px 0%;
+    margin: 30px 0%;
   }
   .rating {
     width: 250px;

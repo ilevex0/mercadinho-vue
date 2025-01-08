@@ -186,9 +186,11 @@ export default {
 
             if (index !== -1) {
               this.$store.state.cart.splice(index, 1);
+              
             }
             if (product.quantity >= 1) {
               this.$store.state.cart.push(product);
+
             }
             this.$swal.fire({
               title: "Added in Cart!",
@@ -197,6 +199,7 @@ export default {
               confirmButtonText: "OK",
               confirmButtonColor: "#0d6efd",
             });
+            localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
             this.$router.push("/my-cart");
           }
         });
@@ -228,7 +231,10 @@ export default {
               (item) => item.id === product.id
             );
 
-            if (index > -1) this.$store.state.cart.splice(index, 1);
+            if (index > -1) {
+              this.$store.state.cart.splice(index, 1);
+              localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
+            }
 
             swalWithBootstrapButtons.fire({
               title: "Deleted!",

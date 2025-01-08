@@ -4,8 +4,8 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    cart: [],
-    buyNowCart: [],
+    cart: JSON.parse(localStorage.getItem('cart')) || [],
+    buyNowCart: JSON.parse(localStorage.getItem('buyNowCart')) || [],
   },
   getters: {
     getCart(state) {
@@ -16,14 +16,17 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    clearCart(state) {
+      state.cart = [];
+      localStorage.removeItem('cart');
+    },
     buyNowClear(state) {
       state.buyNowCart = [];
+      localStorage.removeItem('buyNowCart');
     },
     buyNow(state, product) {
       state.buyNowCart.push(product);
-    },
-    clearCart(state) {
-      state.cart = [];
+      localStorage.setItem('buyNowCart', JSON.stringify(state.buyNowCart));
     },
   }
 });

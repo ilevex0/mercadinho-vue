@@ -167,6 +167,7 @@ export default {
         total += parseInt(this.selected[i]) * parseFloat(product.price);
         product.quantity = parseInt(this.selected[i]);
       });
+      localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
       return total;
     },
   },
@@ -190,12 +191,8 @@ export default {
   background-color: white;
 }
 .cart-empty {
-  display: flex;
   margin: 200px 40vw;
   color: rgb(0, 0, 0);
-  justify-content: center;
-  align-content: center;
-  border-radius: 8px;
   white-space: nowrap;
 }
 .purchase-info {
