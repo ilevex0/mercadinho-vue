@@ -18,7 +18,7 @@
           <input class="nav-search" type="search" placeholder="Search in this Website">
           <div class="user-account">
             <p>Hello User,</p>
-            <p class="user-account-button">See My Account</p>
+            <p class="user-account-button">See My Account <img src="@/assets/arrow_forward.png" alt="arrow forward icon" style="max-width: 15px;"></p>
           </div>
           <div>
             <router-link
@@ -411,12 +411,12 @@ a {
     width: 20vw;
   }
 }
-@media (max-width: 870px) {
+@media (max-width: 900px) {
   .nav-search {
     display: none;
   }
 }
-@media (max-width: 751px) {
+@media (max-width: 780px) {
   .nav-second-section-info {
     display: none;
   }
