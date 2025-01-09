@@ -11,14 +11,42 @@
                 class="nav-logo-image"
             /></router-link>
             <b-button class="nav-location_on">
-              <p class="nav-location-title"><img :src="require('@/assets/location_on.png')" alt="location_on" class="nav-location_on-image">Send to</p>
+              <p class="nav-location-title">
+                <img
+                  :src="require('@/assets/location_on.png')"
+                  alt="location_on"
+                  class="nav-location_on-image"
+                />Send to
+              </p>
               <p>São Paulo 01234-567</p>
             </b-button>
           </div>
-          <input class="nav-search" type="search" placeholder="Search in this Website">
+          <div class="input-container">
+            <form @submit.prevent="searchFunction">
+              <input
+                class="nav-search"
+                type="search"
+                placeholder="Search in this Website"
+                v-model="searchQuery"
+              />
+              <button class="nav-search-btn" type="submit">
+                <img
+                  src="@/assets/magnifyingglass.png"
+                  alt="Magnifying Glass icon"
+                />
+              </button>
+            </form>
+          </div>
           <div class="user-account">
             <p>Hello User,</p>
-            <p class="user-account-button">See My Account <img src="@/assets/arrow_forward.png" alt="arrow forward icon" style="max-width: 15px;"></p>
+            <p class="user-account-button">
+              See My Account
+              <img
+                src="@/assets/arrow_forward.png"
+                alt="arrow forward icon"
+                style="max-width: 15px"
+              />
+            </p>
           </div>
           <div>
             <router-link
@@ -89,11 +117,15 @@ export default {
   },
   data() {
     return {
+      searchQuery: "",
       APIRequest:
         "https://gist.githubusercontent.com/ilevex0/f460b3445549733edabcc90027803ff6/raw/7169d7201ef6d1509abc8c6fd318ba60c002c19b/products.json",
     };
   },
   methods: {
+    searchFunction() {
+      alert("Buscando por: " + this.searchQuery);
+    },
     scrollToTechnology(event) {
       event.preventDefault();
 
@@ -186,11 +218,9 @@ export default {
 
             if (index !== -1) {
               this.$store.state.cart.splice(index, 1);
-              
             }
             if (product.quantity >= 1) {
               this.$store.state.cart.push(product);
-
             }
             this.$swal.fire({
               title: "Added in Cart!",
@@ -199,7 +229,10 @@ export default {
               confirmButtonText: "OK",
               confirmButtonColor: "#0d6efd",
             });
-            localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
+            localStorage.setItem(
+              "cart",
+              JSON.stringify(this.$store.state.cart)
+            );
             this.$router.push("/my-cart");
           }
         });
@@ -233,7 +266,10 @@ export default {
 
             if (index > -1) {
               this.$store.state.cart.splice(index, 1);
-              localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
+              localStorage.setItem(
+                "cart",
+                JSON.stringify(this.$store.state.cart)
+              );
             }
 
             swalWithBootstrapButtons.fire({
@@ -283,7 +319,8 @@ export default {
   color: white;
   font-weight: 600;
 }
-.user-account, p {
+.user-account,
+p {
   margin: 0px;
 }
 .div-nav {
@@ -395,30 +432,50 @@ a {
   transition: all 0.2s ease-in;
   border: solid 1px rgb(199, 225, 255);
 }
+.input-container {
+  position: relative;
+}
 .nav-search {
-    border: 2px solid #242424;
-    border-radius: 20px;
-    padding: .7em 1em;
-    width: 40vw;
-    text-overflow: ellipsis;
+  border: 2px solid #242424;
+  border-radius: 20px;
+  padding: 0.7em 1em;
+  width: 40vw;
+  text-overflow: ellipsis;
 }
 .nav-search:focus {
-    border: 2px solid #ff7b00;
-    border-radius: 20px;
-    padding: .7em 1em;
+  border: 2px solid #ff7b00;
+  border-radius: 20px;
+  padding: 0.7em 1em;
 }
-
 .nav-search::placeholder {
-    font-size: 18px;
-    background: url("@/assets/magnifyingglass.png") no-repeat right center;
+  font-size: 18px;
+}
+.nav-search-btn {
+  position: absolute;
+  cursor: pointer;
+  top: 0%;
+  bottom: 0%;
+  right: 0%;
+  left: 85%;
 }
 @media (max-width: 1200px) {
   .nav-search {
     width: 20vw;
   }
+  .nav-search-btn {
+    position: absolute;
+    cursor: pointer;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 70%;
+  }
 }
 @media (max-width: 900px) {
   .nav-search {
+    display: none;
+  }
+  .nav-search-btn {
     display: none;
   }
 }
@@ -471,5 +528,4 @@ a {
     max-width: 0px; /* leave animation */
   }
 }
-
 </style>

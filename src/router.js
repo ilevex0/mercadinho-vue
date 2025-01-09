@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage.vue";
 import PurchasePage from "./pages/PurchasePage.vue";
 import ProductDetailsPage from "./pages/ProductDetailsPage.vue"
 import PurchasingPage from "./pages/PurchasingPage.vue";
+import SearchPage from "./pages/SearchPage.vue";
 
 // Informar ao Vue que vamos usar o Vue Router
 Vue.use(Router);
@@ -43,6 +44,11 @@ const routes = [
     path: "/purchasingpage",
     name: "purchasingpage",
     component: PurchasingPage,
+  },
+  {
+    path: "/searchpage/:search",
+    name: "searchpage",
+    component: SearchPage,
   }
 ];
 
