@@ -116,6 +116,10 @@ export default {
   width: 100%;
   cursor: pointer;
 }
+.product-image:hover {
+  scale: 1.01;
+  transition: 0.5s;
+}
 .product-title {
   width: 100%;
   white-space: nowrap;
