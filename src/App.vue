@@ -448,6 +448,7 @@ a {
   background-color: rgb(48, 98, 235);
   transition: all 0.2s ease-in;
   border: solid 1px rgb(199, 225, 255);
+  white-space: nowrap;
 }
 .input-container {
   position: relative;
