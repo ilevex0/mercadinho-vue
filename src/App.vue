@@ -464,6 +464,9 @@ a {
   border-radius: 20px;
   padding: 0.7em 1em;
 }
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
 .nav-search::placeholder {
   font-size: 18px;
 }
