@@ -35,8 +35,13 @@
               </p>
               <div class="cart_product_button">
                 <p class="product-price-mobile">
-                 {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
-              </p>
+                  {{
+                    (selected[index] * product.price).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })
+                  }}
+                </p>
                 <div>
                   <p>
                     Quantity:
@@ -48,29 +53,48 @@
                     ></b-form-select>
                   </p>
                 </div>
-                <b-button class="btn" @click="removeFromCart(product)"
-                  ><img
-                    class="btn-image"
-                    src="../assets/lixeira.svg"
-                    alt="Delete"
-                /></b-button>
+                <div class="buttons">
+                  <span class="remove-button" @click="removeFromCart(product)"
+                    >Remove</span
+                  >
+                  |
+                  <span class="remove-button" @click="shareButton(product)"
+                    >Share</span
+                  >
+                </div>
               </div>
             </div>
 
             <div class="p-price">
               <p class="product-price">
-                <b>{{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
+                <b>{{
+                  (selected[index] * product.price).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                }}</b>
               </p>
               <p class="product-price-text">
-                à vista no cartão de crédito ou em até 10x de {{ (selected[index] * product.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} sem juros
+                à vista no cartão de crédito ou em até 10x de
+                {{
+                  (selected[index] * product.price).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                }}
+                sem juros
               </p>
             </div>
           </div>
         </div>
         <p class="product-price-end">
           SubTotal({{ this.$store.state.cart.length }}
-          {{ this.$store.state.cart.length > 1 ? "products" : "product" }}) <b>{{
-            totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+          {{ this.$store.state.cart.length > 1 ? "products" : "product" }})
+          <b>{{
+            totalPriceCalc.toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })
           }}</b>
         </p>
       </section>
@@ -79,7 +103,12 @@
           <p class="product-price">
             SubTotal({{ this.$store.state.cart.length }}
             {{ this.$store.state.cart.length > 1 ? "products" : "product" }})
-            <b>{{ totalPriceCalc.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</b>
+            <b>{{
+              totalPriceCalc.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })
+            }}</b>
           </p>
           <div>
             <b-form-checkbox
@@ -133,6 +162,17 @@ export default {
     },
   },
   methods: {
+    shareButton(product) {
+      const fullUrl =
+        window.location.origin + "/productdetailspage/" + product.image;
+
+      this.$swal.fire({
+        title: "Thank you for sharing!",
+        html: `Just Copy This URL link: <a href="${fullUrl}" autofocus>${fullUrl}</a>`,
+        icon: "success",
+        confirmButtonText: "Great!",
+      });
+    },
     removeFromCart(product) {
       this.$emit("removeFromCart", product);
     },
@@ -167,7 +207,7 @@ export default {
         total += parseInt(this.selected[i]) * parseFloat(product.price);
         product.quantity = parseInt(this.selected[i]);
       });
-      localStorage.setItem('cart', JSON.stringify(this.$store.state.cart));
+      localStorage.setItem("cart", JSON.stringify(this.$store.state.cart));
       return total;
     },
   },
@@ -279,6 +319,17 @@ export default {
 .mb-2 {
   white-space: nowrap; /* Impede a quebra de linha */
   overflow: hidden; /* Esconde o texto que ultrapassar o limite */
+}
+.buttons {
+  margin: 10px 0;
+  color: rgb(206, 206, 206);
+}
+.remove-button {
+  cursor: pointer;
+  color: rgb(62, 111, 202);
+}
+.remove-button:hover {
+  color: rgb(20, 68, 156);
 }
 .btn {
   margin-top: 5px;
