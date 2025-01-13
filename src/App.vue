@@ -102,6 +102,7 @@
       :APIRequest="APIRequest"
       @removeFromCart="removeFromCart"
       @clearCart="clearCart"
+      :searchQuery="searchQuery"
     ></router-view>
     <FooterComponent />
   </div>
@@ -124,7 +125,23 @@ export default {
   },
   methods: {
     searchFunction() {
-      alert("Buscando por: " + this.searchQuery);
+      this.searchQuery = this.searchQuery.trim().toLowerCase();
+
+      if (this.searchQuery === "") {
+        if (this.$route.path === "/") {
+          return;
+        }
+        this.$router.push("/");
+        return;
+      }
+      if (this.$route.path === `/searchpage/${this.searchQuery}`) {
+        window.scrollTo(0, 0);
+        return;
+      }
+      this.$router.push({
+        name: "searchpage",
+        params: { search: this.searchQuery },
+      });
     },
     scrollToTechnology(event) {
       event.preventDefault();
@@ -472,10 +489,7 @@ a {
   }
 }
 @media (max-width: 900px) {
-  .nav-search {
-    display: none;
-  }
-  .nav-search-btn {
+  .nav-location_on {
     display: none;
   }
 }
@@ -487,8 +501,10 @@ a {
     width: 100%;
     gap: 50px;
   }
-  .nav-location_on {
-    display: none;
+}
+@media (max-width: 618px) {
+  .nav-logo-image {
+    max-width: 100px;
   }
 }
 @media (max-width: 592px) {
@@ -501,14 +517,28 @@ a {
     padding-right: 20px;
   }
 }
-@media (max-width: 471px) {
-  .nav-location_on {
-    display: none;
+@media (max-width: 520px) {
+  .nav-logo-image {
+    max-width: 0px; /* leave animation */
+  }
+  .nav-search {
+    width: 30vw;
+  }
+  .nav-search-btn {
+    position: absolute;
+    cursor: pointer;
+    top: 0%;
+    bottom: 0%;
+    right: 0%;
+    left: 70%;
   }
 }
-@media (max-width: 425px) {
-  .nav-logo-image {
-    max-width: 100px;
+@media (max-width: 448px) {
+  .nav-search {
+    display: none;
+  }
+  .nav-search-btn {
+    display: none;
   }
 }
 @media (max-width: 394px) {
@@ -523,9 +553,6 @@ a {
   .nav-second-section-categories {
     padding: 0px 30px;
     gap: 10px;
-  }
-  .nav-logo-image {
-    max-width: 0px; /* leave animation */
   }
 }
 </style>

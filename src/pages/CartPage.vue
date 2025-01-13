@@ -191,7 +191,8 @@ export default {
   background-color: white;
 }
 .cart-empty {
-  margin: 200px 40vw;
+  margin: 200px 0;
+  align-self: center;
   color: rgb(0, 0, 0);
   white-space: nowrap;
 }
