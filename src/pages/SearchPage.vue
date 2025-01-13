@@ -66,6 +66,7 @@ export default {
   },
   methods: {
     addToCart(product) {
+      product.quantity = 1;
       this.$emit("addProduct", product);
     },
     seeProduct(product) {
