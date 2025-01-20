@@ -15,23 +15,17 @@
       <!-- Text slides with image -->
       <b-carousel-slide
         :img-src="require(`@/assets/products_banners/banner-1.png`)">
-        <h2>NOTE: All the images in this website is taken from the internet!</h2>
     </b-carousel-slide>
 
       <!-- Slides with custom text -->
-      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-2.png`)">
-        <h2>NOTE: All the images in this website is taken from the internet!</h2>
+      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-1.png`)">
       </b-carousel-slide>
 
       <!-- Slides with image only -->
       <b-carousel-slide
-        :img-src="require(`@/assets/products_banners/banner-3.png`)">
-        <h2>NOTE: All the images in this website is taken from the internet!</h2>
+        :img-src="require(`@/assets/products_banners/banner-1.png`)">
       </b-carousel-slide>
-      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-4.png`)">
-        <p>
-          NOTE: All the images in this website is taken from the internet!
-        </p>
+      <b-carousel-slide :img-src="require(`@/assets/products_banners/banner-1.png`)">
       </b-carousel-slide>
     </b-carousel>
   </div>

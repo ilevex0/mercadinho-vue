@@ -26,19 +26,9 @@
           <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
             <b-card-body>
               <b-card-text
-                ><p>
-                  The images in this website is not mine!! I am ONLY the author
-                  of this website, not the images!
-                </p>
-                <p>
-                  <b
-                    >If you are the author of the images and want me to delete,
-                    just contact me and i will do it.</b
-                  >
-                </p>
-                <p>
-                  The images are here just for illustration purpose!
-                </p></b-card-text
+                >
+                <p>I made all the banners, I used free image banks to make the banners, but I got the product images from the internet.</p>
+                </b-card-text
               >
             </b-card-body>
           </b-collapse>
