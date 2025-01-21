@@ -4,6 +4,7 @@
       <nav class="nav">
         <section class="nav-first-section">
           <div class="nav-first-section-Logo-ZIP">
+            <img src="@/assets/menu.svg" alt="Menu Icon" class="mobile-menu">
             <router-link to="/"
               ><img
                 :src="require('@/assets/nav_logo.png')"
@@ -479,6 +480,9 @@ input[type="search"]::-webkit-search-cancel-button {
   right: 0%;
   left: 85%;
 }
+.mobile-menu {
+    display: none;
+  }
 @media (max-width: 1200px) {
   .nav-search {
     width: 20vw;
@@ -538,11 +542,20 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 @media (max-width: 448px) {
-  .nav-search {
-    display: none;
-  }
   .nav-search-btn {
     display: none;
+  }
+  .user-account {
+    display: none;
+  }
+  .nav-search {
+    width: 50vw;
+  }
+  .mobile-menu {
+    display: block;
+  }
+  .nav-first-section-Logo-ZIP {
+    gap: 0;
   }
 }
 @media (max-width: 394px) {
