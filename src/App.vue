@@ -599,7 +599,7 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 10px;
   }
   .nav-logo-image {
-    max-width: 70px; /* leave animation */
+    max-width: 20vw; /* leave animation */
   }
 }
 </style>
