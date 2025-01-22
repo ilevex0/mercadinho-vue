@@ -4,7 +4,34 @@
       <nav class="nav">
         <section class="nav-first-section">
           <div class="nav-first-section-Logo-ZIP">
-            <img src="@/assets/menu.svg" alt="Menu Icon" class="mobile-menu" />
+            <!--
+            <div class="mobile-menu">
+              <b-dropdown
+                size="lg"
+                variant="link"
+                toggle-class="text-decoration-none"
+                no-caret
+              >
+                <template #button-content>
+                  <img
+                    src="@/assets/menu.svg"
+                    alt="Menu Icon"
+                  />
+                </template>
+                <b-dropdown-item href="#"
+                  ><b>See My Account </b
+                  ><img
+                    src="@/assets/arrow_forward.png"
+                    alt="arrow forward icon"
+                    style="max-width: 15px"
+                /></b-dropdown-item>
+                <b-dropdown-item href="#">Another action</b-dropdown-item>
+                <b-dropdown-item href="#"
+                  >Something else here...</b-dropdown-item
+                >
+              </b-dropdown>
+            </div>
+            -->
             <router-link to="/"
               ><img
                 :src="require('@/assets/nav_logo.png')"
@@ -526,8 +553,9 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 @media (max-width: 520px) {
-  .nav-logo-image {
-    max-width: 0px; /* leave animation */
+  
+  .user-account {
+    display: none;
   }
   .nav-search {
     width: 30vw;
@@ -543,17 +571,16 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 @media (max-width: 448px) {
   .nav-search-btn {
-    left: 75%;
-  }
-  .user-account {
-    display: none;
+    left: 65%;
   }
   .nav-search {
-    width: 50vw;
+    width: 35vw;
   }
+  /*
   .mobile-menu {
     display: block;
   }
+  */
   .nav-first-section-Logo-ZIP {
     gap: 0;
   }
@@ -570,6 +597,9 @@ input[type="search"]::-webkit-search-cancel-button {
   .nav-second-section-categories {
     padding: 0px 30px;
     gap: 10px;
+  }
+  .nav-logo-image {
+    max-width: 70px; /* leave animation */
   }
 }
 </style>
